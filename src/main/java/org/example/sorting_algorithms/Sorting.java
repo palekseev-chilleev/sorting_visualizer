@@ -16,4 +16,6 @@ public interface Sorting {
 
     public int[] getSortedData();
 
+    SortingStep getZeroSortingStep();
+    void shuffleArray();
 }

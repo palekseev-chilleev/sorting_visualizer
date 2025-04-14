@@ -5,20 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb8457f9-daba-4d24-8930-379f929f1282" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/DoubleInsertionSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/InsertionSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SortingComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/UniversalDataSorting.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Utils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingStep.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingController.java" afterDir="false" />
@@ -99,13 +91,8 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java</url>
-          <line>100</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java</url>
-          <line>88</line>
-          <option name="timeStamp" value="11" />
+          <line>138</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,8 +1,6 @@
 package org.example.sortingvisualizer;
 
-import org.example.sorting_algorithms.BubbleSorting;
-import org.example.sorting_algorithms.Sorting;
-import org.example.sorting_algorithms.Utils;
+import org.example.sorting_algorithms.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +19,9 @@ public class SortingController {
 
         generateRandomArray(length, maxValue);
 //        int[] generated_unsorted_array = Utils.generateRandomIntArray(1500);
-        sorter_obj = new BubbleSorting(unsorted_array);
+//        sorter_obj = new BubbleSorting(unsorted_array);
+        sorter_obj = new SelectionSorting(unsorted_array);
+//        sorter_obj = new MergeSorting(unsorted_array);
 
 
     }
@@ -51,6 +51,13 @@ public class SortingController {
         return sorted_array;
     }
 
+    public SortingStep getZeroSortingStep() {
+        return sorter_obj.getZeroSortingStep();
+    }
+
+    public void shuffleArray() {
+        sorter_obj.shuffleArray();
+    }
 }
 
 

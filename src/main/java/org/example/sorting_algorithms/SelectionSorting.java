@@ -1,5 +1,7 @@
 package org.example.sorting_algorithms;
 
+import org.example.sortingvisualizer.SortingStep;
+
 public class SelectionSorting extends NumbersSorting {
     public SelectionSorting(int[] unsorted_array) {
         super(unsorted_array);
@@ -20,6 +22,7 @@ public class SelectionSorting extends NumbersSorting {
             }
             sorted_data[min_elem_id] = sorted_data[i];
             sorted_data[i] = min_elem;
+            sorting_steps.add(new SortingStep(sorted_data.clone()));
         }
         this.sorted_data = sorted_data;
     }

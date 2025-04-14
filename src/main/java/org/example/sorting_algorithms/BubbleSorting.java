@@ -20,7 +20,6 @@ public class BubbleSorting extends NumbersSorting {
                     sorted_data[j + 1] = swap;
                 }
             }
-//            List<SortingStep> step = new ArrayList<SortingStep>(sorted_data);
             sorting_steps.add(new SortingStep(sorted_data.clone()));
         }
         this.sorted_data = sorted_data;

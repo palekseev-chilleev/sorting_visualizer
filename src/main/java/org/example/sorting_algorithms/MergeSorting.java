@@ -1,5 +1,7 @@
 package org.example.sorting_algorithms;
 
+import org.example.sortingvisualizer.SortingStep;
+
 import java.util.Arrays;
 
 public class MergeSorting extends NumbersSorting {
@@ -49,6 +51,7 @@ public class MergeSorting extends NumbersSorting {
                 a++;
             }
         }
+        sorting_steps.add(new SortingStep(result.clone()));
         return result;
     }
 
