@@ -1,5 +1,7 @@
 package org.example.sorting_algorithms;
 
+import org.example.sortingvisualizer.SortingStep;
+
 public class DoubleInsertionSorting extends NumbersSorting {
 
     public DoubleInsertionSorting(int[] unsorted_array) {
@@ -33,6 +35,7 @@ public class DoubleInsertionSorting extends NumbersSorting {
             }
             sorted_data[min_id] = sorted_data[i];
             sorted_data[i] = min;
+            sorting_steps.add(new SortingStep(sorted_data.clone()));
         }
         this.sorted_data = sorted_data;
     }

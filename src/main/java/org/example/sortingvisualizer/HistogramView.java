@@ -9,17 +9,24 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.example.sorting_algorithms.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Random;
 
 import static java.lang.Math.abs;
+
+enum SortType {
+    BUBBLE, INSERTION, QUICK, DOUBLE_INSERTION, SELECTION, MERGE
+}
 
 
 public class HistogramView extends Application {
@@ -28,14 +35,27 @@ public class HistogramView extends Application {
     private static int CANVAS_WIDTH;
     private static int CANVAS_HEIGHT;
     private static int BAR_SPACING = 2;
-    private static SortingController SORTER;
+
     private GraphicsContext gc;
+    private static int[] unsorted_array;
+    //    private int[] sorted_array;
+    private static Sorting sorter_obj;
 
-
-    public static void setParams(int width, int height, SortingController sortingController) {
+    public static void setParams(int width, int height) {
         CANVAS_WIDTH = width;
         CANVAS_HEIGHT = height;
-        SORTER = sortingController;
+//        generateRandomArray((CANVAS_WIDTH/2)-30, 1000);
+        generateRandomArray(200, 1000);
+//        sorter_obj = new BubbleSorting(unsorted_array);
+        sorter_obj = new MergeSorting(unsorted_array);
+    }
+
+    private static void generateRandomArray(int length, int maxValue) {
+        Random rand = new Random();
+        unsorted_array = new int[length];
+        for (int i = 0; i < unsorted_array.length; i++) {
+            unsorted_array[i] = rand.nextInt(maxValue) + 50;
+        }
     }
 
     @Override
@@ -55,11 +75,47 @@ public class HistogramView extends Application {
         Button shuffleButton = new Button("Shuffle Sort");
         shuffleButton.setOnAction(e -> shuffleNumbers());
 
+        ToggleGroup sortingAlgorithmsGroup = new ToggleGroup();
+        RadioButton bubbleButton = new RadioButton("Bubble");
+        bubbleButton.setToggleGroup(sortingAlgorithmsGroup);
+        bubbleButton.setUserData(SortType.BUBBLE);
+
+        RadioButton insertionButton = new RadioButton("Insertion");
+        insertionButton.setToggleGroup(sortingAlgorithmsGroup);
+        insertionButton.setUserData(SortType.INSERTION);
+
+        RadioButton quickButton = new RadioButton("Quick");
+        quickButton.setToggleGroup(sortingAlgorithmsGroup);
+        quickButton.setUserData(SortType.QUICK);
+
+        RadioButton selectionButton = new RadioButton("Selection");
+        selectionButton.setToggleGroup(sortingAlgorithmsGroup);
+        selectionButton.setUserData(SortType.SELECTION);
+
+        RadioButton mergeButton = new RadioButton("Merge");
+        mergeButton.setToggleGroup(sortingAlgorithmsGroup);
+        mergeButton.setUserData(SortType.MERGE);
+
+        RadioButton doubleInsertionButton = new RadioButton("Double Insertion");
+        doubleInsertionButton.setToggleGroup(sortingAlgorithmsGroup);
+        doubleInsertionButton.setUserData(SortType.DOUBLE_INSERTION);
+
+        bubbleButton.setSelected(true);
+//        mergeButton.setSelected(true);
+
+        sortingAlgorithmsGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle != null) {
+                SortType selectedType = (SortType) newToggle.getUserData();
+                setSortingAlgorithm(selectedType);
+            }
+        });
+
         HBox root = new HBox();
         root.setSpacing(20); // расстояние между холстом и кнопкой
         root.setPadding(new Insets(20)); // отступы от краёв
 
-        VBox controlPanel = new VBox(startButton, revertButton, shuffleButton);
+        VBox controlPanel = new VBox(startButton, revertButton, shuffleButton, bubbleButton, selectionButton,
+                insertionButton, doubleInsertionButton, mergeButton, quickButton);
         controlPanel.setSpacing(10);
         controlPanel.setAlignment(Pos.TOP_CENTER); // выравнивание по центру
         root.getChildren().addAll(canvasWrapper, controlPanel);
@@ -72,31 +128,46 @@ public class HistogramView extends Application {
         primaryStage.show();
 
         calculateBarWidth();
-        drawStep(SORTER.getZeroSortingStep());
+        drawStep(sorter_obj.getZeroSortingStep());
+    }
+
+    private void setSortingAlgorithm(SortType type) {
+        switch (type) {
+            case BUBBLE:
+                sorter_obj = new BubbleSorting(unsorted_array);
+                break;
+            case SELECTION:
+                sorter_obj = new SelectionSorting(unsorted_array);
+                break;
+            case INSERTION:
+                sorter_obj = new InsertionSorting(unsorted_array);
+                break;
+            case QUICK:
+                sorter_obj = new QuickSorting(unsorted_array);
+                break;
+            case DOUBLE_INSERTION:
+                sorter_obj = new DoubleInsertionSorting(unsorted_array);
+                break;
+            case MERGE:
+                sorter_obj = new MergeSorting(unsorted_array);
+                break;
+        }
+
+        System.out.println("Selected algorithm: " + type);
     }
 
     private void revertSort() {
-        drawStep(SORTER.getZeroSortingStep());
+        drawStep(sorter_obj.getZeroSortingStep());
     }
 
     private void shuffleNumbers() {
-        SORTER.shuffleArray();
-        drawStep(SORTER.getZeroSortingStep());
+        sorter_obj.shuffleArray();
+        drawStep(sorter_obj.getZeroSortingStep());
     }
 
     private void calculateBarWidth() {
-        BAR_WIDTH = CANVAS_WIDTH / SORTER.getValues().length;
+        BAR_WIDTH = CANVAS_WIDTH / sorter_obj.getSortedData().length;
     }
-
-//    private void drawArray() {
-//        gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-//        int[] values = SORTER.getValues();
-//        values = normalizeValues(values,1, CANVAS_HEIGHT);
-//        for (int i = 0; i < values.length; i++) {
-//            gc.setFill(Color.CORNFLOWERBLUE);
-//            gc.fillRect(i * BAR_WIDTH, CANVAS_HEIGHT - values[i], BAR_WIDTH - BAR_SPACING, values[i]);
-//        }
-//    }
 
     private int[] normalizeValues(int[] array, int newMin, int newMax) {
         int[] normalized = new int[array.length];
@@ -119,7 +190,7 @@ public class HistogramView extends Application {
 
     private void animateSort() {
         Timeline timeline = new Timeline();
-        ArrayList<SortingStep> sorting_steps = SORTER.getSortingSteps();
+        ArrayList<SortingStep> sorting_steps = sorter_obj.getSortingSteps();
         int delay = 50; // Скорость анимации
         for (int i = 0; i < sorting_steps.size(); i++) {
             SortingStep step = sorting_steps.get(i);
@@ -134,16 +205,17 @@ public class HistogramView extends Application {
     private void drawStep(SortingStep step) {
         gc.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         int[] values = step.getValues();
-        values = normalizeValues(values,1, CANVAS_HEIGHT);
+        values = normalizeValues(values, 10, CANVAS_HEIGHT - 10);
         calculateBarWidth();
 //        int side_spacing = abs(CANVAS_WIDTH - (values.length * (BAR_WIDTH + BAR_SPACING) - BAR_SPACING)) / 2;
+        int side_spacing = abs(CANVAS_WIDTH - (values.length * BAR_WIDTH - BAR_SPACING)) / 2;
         for (int i = 0; i < values.length; i++) {
             double intensity = (double) values[i] / CANVAS_HEIGHT;
-            Color color = Color.color(0.39, 0.58, 0.93 * intensity);
+            Color color = Color.color(0.19, 0.58, 0.93 * intensity);
 
 //            gc.setFill(Color.CORNFLOWERBLUE);
             gc.setFill(color);
-            gc.fillRect(i * BAR_WIDTH, CANVAS_HEIGHT - values[i], BAR_WIDTH - BAR_SPACING, values[i]);
+            gc.fillRect(side_spacing + (i * BAR_WIDTH), CANVAS_HEIGHT - values[i], BAR_WIDTH - BAR_SPACING, values[i]);
         }
     }
 

@@ -24,6 +24,7 @@ public class InsertionSorting extends NumbersSorting {
             }
             sorted_data[max_id] = sorted_data[sorted_data.length - i - 1];
             sorted_data[sorted_data.length - i - 1] = max;
+            sorting_steps.add(new SortingStep(sorted_data.clone()));
         }
         this.sorted_data = sorted_data;
     }

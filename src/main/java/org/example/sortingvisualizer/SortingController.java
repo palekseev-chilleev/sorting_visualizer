@@ -20,11 +20,13 @@ public class SortingController {
         generateRandomArray(length, maxValue);
 //        int[] generated_unsorted_array = Utils.generateRandomIntArray(1500);
 //        sorter_obj = new BubbleSorting(unsorted_array);
-        sorter_obj = new SelectionSorting(unsorted_array);
-//        sorter_obj = new MergeSorting(unsorted_array);
-
-
+//        sorter_obj = new SelectionSorting(unsorted_array);
+        sorter_obj = new MergeSorting(unsorted_array);
     }
+
+//    public void setSorterAlgorithm(SortType type){
+//        sorter_obj = new
+//    }
 
     private void generateRandomArray(int length, int maxValue) {
         Random rand = new Random();
