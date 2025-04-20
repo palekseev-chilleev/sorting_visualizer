@@ -5,21 +5,17 @@ import java.util.*;
 import org.example.sortingvisualizer.SortingStep;
 
 abstract public class NumbersSorting implements Sorting {
-    int[] unsorted_data;
-    int[] sorted_data;
+    protected int[] unsorted_data;
+    protected int[] sorted_data;
+    protected ArrayList<SortingStep> sorting_steps;
 
-    ArrayList<SortingStep> sorting_steps;
 
-
-    public NumbersSorting(int[] unsorted_array) {
-        this.sorting_steps = new ArrayList<>();
-        this.setData(unsorted_array);
+    public NumbersSorting(int[] new_unsorted_array) {
+        sorting_steps = new ArrayList<>();
+        setData(new_unsorted_array);
         sorting_steps.add(new SortingStep(unsorted_data.clone()));
-        this.performSorting();
-        this.verifySorting();
-    }
-
-    public NumbersSorting() {
+        performSorting();
+        verifySorting();
     }
 
     public void shuffleArray() {
@@ -30,38 +26,42 @@ abstract public class NumbersSorting implements Sorting {
             unsorted_data[index] = unsorted_data[i];
             unsorted_data[i] = a;
         }
-        this.sorting_steps = new ArrayList<>();
+        sorting_steps = new ArrayList<>();
         sorting_steps.add(new SortingStep(unsorted_data.clone()));
-        this.performSorting();
-        this.verifySorting();
+        performSorting();
+        verifySorting();
     }
 
 
-    public void setData(int[] unsorted_array) {
-        this.unsorted_data = unsorted_array.clone();
+    public void setData(int[] new_unsorted_array) {
+        unsorted_data = new_unsorted_array.clone();
     }
 
     public int[] getUnsortedData() {
-        return this.unsorted_data;
+        return unsorted_data;
     }
 
     public int[] getSortedData() {
-        return this.sorted_data;
+        return sorted_data;
     }
 
     public ArrayList<SortingStep> getSortingSteps() {
-        return this.sorting_steps;
+        return sorting_steps;
     }
 
     public SortingStep getZeroSortingStep() {
-        return this.sorting_steps.getFirst();
+        return sorting_steps.getFirst();
+    }
+
+    public SortingStep getSortingStepByIndex(int index){
+        return sorting_steps.get(index);
     }
 
 
     public boolean verifySorting() {
-        int[] tmp = this.unsorted_data.clone();
+        int[] tmp = unsorted_data.clone();
         Arrays.sort(tmp);
-        boolean res = Arrays.equals(tmp, this.sorted_data);
+        boolean res = Arrays.equals(tmp, sorted_data);
         if (res) {
             System.out.println("Array is sorted correctly with " + this.toString() + " class object.");
         } else {

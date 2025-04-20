@@ -6,16 +6,18 @@ import java.util.ArrayList;
 
 public interface Sorting {
 
-    void performSorting();
+    public void performSorting();
 
     boolean verifySorting(); // true if sorting verified and false if not.
 
-    public ArrayList<SortingStep> getSortingSteps();
-
-    public int[] getUnsortedData();
+    void shuffleArray();
 
     public int[] getSortedData();
 
-    SortingStep getZeroSortingStep();
-    void shuffleArray();
+    public SortingStep getZeroSortingStep();
+
+    public ArrayList<SortingStep> getSortingSteps();
+
+    public SortingStep getSortingStepByIndex(int index);
+
 }

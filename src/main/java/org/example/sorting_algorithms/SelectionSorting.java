@@ -3,27 +3,27 @@ package org.example.sorting_algorithms;
 import org.example.sortingvisualizer.SortingStep;
 
 public class SelectionSorting extends NumbersSorting {
-    public SelectionSorting(int[] unsorted_array) {
-        super(unsorted_array);
+    public SelectionSorting(int[] new_unsorted_array) {
+        super(new_unsorted_array);
     }
 
     @Override
     public void performSorting() {
-        int[] sorted_data = this.unsorted_data.clone();
+        int[] sorted_data_res = unsorted_data.clone();
         int min_elem, min_elem_id;
-        for (int i = 0; i < sorted_data.length; i++) {
-            min_elem = sorted_data[i];
+        for (int i = 0; i < sorted_data_res.length; i++) {
+            min_elem = sorted_data_res[i];
             min_elem_id = i;
-            for (int j = i; j < sorted_data.length; j++){
-                if (sorted_data[j] < min_elem) {
-                    min_elem = sorted_data[j];
+            for (int j = i; j < sorted_data_res.length; j++){
+                if (sorted_data_res[j] < min_elem) {
+                    min_elem = sorted_data_res[j];
                     min_elem_id = j;
                 }
             }
-            sorted_data[min_elem_id] = sorted_data[i];
-            sorted_data[i] = min_elem;
-            sorting_steps.add(new SortingStep(sorted_data.clone()));
+            sorted_data_res[min_elem_id] = sorted_data_res[i];
+            sorted_data_res[i] = min_elem;
+            sorting_steps.add(new SortingStep(sorted_data_res.clone()));
         }
-        this.sorted_data = sorted_data;
+        this.sorted_data = sorted_data_res;
     }
 }

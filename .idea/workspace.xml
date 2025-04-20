@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb8457f9-daba-4d24-8930-379f929f1282" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/MergeSortingStep.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/DoubleInsertionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/DoubleInsertionSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/InsertionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/InsertionSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/UniversalDataSorting.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingStep.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +32,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21/javafx-graphics-21-mac.jar!/javafx/scene/layout/VBox.class" root0="SKIP_INSPECTION" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -89,12 +95,17 @@
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java</url>
-          <line>138</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.example.sortingvisualizer.MergeSortingStep" memberName="values" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="this.recursion_steps" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

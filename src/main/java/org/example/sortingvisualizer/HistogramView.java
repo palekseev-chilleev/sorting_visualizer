@@ -3,6 +3,7 @@ package org.example.sortingvisualizer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -40,14 +41,15 @@ public class HistogramView extends Application {
     private static int[] unsorted_array;
     //    private int[] sorted_array;
     private static Sorting sorter_obj;
+    private static int current_step_index;
 
     public static void setParams(int width, int height) {
         CANVAS_WIDTH = width;
         CANVAS_HEIGHT = height;
 //        generateRandomArray((CANVAS_WIDTH/2)-30, 1000);
-        generateRandomArray(200, 1000);
-//        sorter_obj = new BubbleSorting(unsorted_array);
-        sorter_obj = new MergeSorting(unsorted_array);
+        generateRandomArray(270, 1000);
+        sorter_obj = new BubbleSorting(unsorted_array);
+        current_step_index = 0;
     }
 
     private static void generateRandomArray(int length, int maxValue) {
@@ -101,7 +103,6 @@ public class HistogramView extends Application {
         doubleInsertionButton.setUserData(SortType.DOUBLE_INSERTION);
 
         bubbleButton.setSelected(true);
-//        mergeButton.setSelected(true);
 
         sortingAlgorithmsGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle != null) {
@@ -110,12 +111,18 @@ public class HistogramView extends Application {
             }
         });
 
+        Button nextStepButton = new Button("Next step");
+        nextStepButton.setOnAction(event -> handleStepButtons(true));
+
+        Button prevStepButton = new Button("Prev step");
+        prevStepButton.setOnAction(event -> handleStepButtons(false));
+
         HBox root = new HBox();
         root.setSpacing(20); // расстояние между холстом и кнопкой
         root.setPadding(new Insets(20)); // отступы от краёв
 
         VBox controlPanel = new VBox(startButton, revertButton, shuffleButton, bubbleButton, selectionButton,
-                insertionButton, doubleInsertionButton, mergeButton, quickButton);
+                insertionButton, doubleInsertionButton, mergeButton, quickButton, nextStepButton, prevStepButton);
         controlPanel.setSpacing(10);
         controlPanel.setAlignment(Pos.TOP_CENTER); // выравнивание по центру
         root.getChildren().addAll(canvasWrapper, controlPanel);
@@ -129,6 +136,24 @@ public class HistogramView extends Application {
 
         calculateBarWidth();
         drawStep(sorter_obj.getZeroSortingStep());
+        current_step_index = 0;
+    }
+
+    private void handleStepButtons(boolean forward) {
+        if (forward) {
+            current_step_index++;
+            if (current_step_index > sorter_obj.getSortingSteps().toArray().length)
+                current_step_index = sorter_obj.getSortingSteps().toArray().length;
+            drawStep(sorter_obj.getSortingStepByIndex(current_step_index));
+
+        } else {
+            current_step_index--;
+            if (current_step_index < 0)
+                current_step_index = 0;
+            drawStep(sorter_obj.getSortingStepByIndex(current_step_index));
+
+        }
+
     }
 
     private void setSortingAlgorithm(SortType type) {
@@ -158,11 +183,13 @@ public class HistogramView extends Application {
 
     private void revertSort() {
         drawStep(sorter_obj.getZeroSortingStep());
+        current_step_index = 0;
     }
 
     private void shuffleNumbers() {
         sorter_obj.shuffleArray();
         drawStep(sorter_obj.getZeroSortingStep());
+        current_step_index = 0;
     }
 
     private void calculateBarWidth() {
@@ -172,14 +199,14 @@ public class HistogramView extends Application {
     private int[] normalizeValues(int[] array, int newMin, int newMax) {
         int[] normalized = new int[array.length];
 
-        // Найдём текущие минимальное и максимальное значения
+        // Local min and max values.
         int oldMin = array[0];
         int oldMax = array[0];
         for (int value : array) {
             if (value < oldMin) oldMin = value;
             if (value > oldMax) oldMax = value;
         }
-        // Нормализация каждого значения
+        // Normalisation of each value
         for (int i = 0; i < array.length; i++) {
             normalized[i] = (int) Math.round(
                     (array[i] - oldMin) * 1.0 / (oldMax - oldMin) * (newMax - newMin) + newMin
@@ -197,6 +224,7 @@ public class HistogramView extends Application {
             KeyFrame keyFrame = new KeyFrame(Duration.millis(delay * i), e -> {
                 drawStep(step);
             });
+            current_step_index = i;
             timeline.getKeyFrames().add(keyFrame);
         }
         timeline.play();
@@ -212,8 +240,6 @@ public class HistogramView extends Application {
         for (int i = 0; i < values.length; i++) {
             double intensity = (double) values[i] / CANVAS_HEIGHT;
             Color color = Color.color(0.19, 0.58, 0.93 * intensity);
-
-//            gc.setFill(Color.CORNFLOWERBLUE);
             gc.setFill(color);
             gc.fillRect(side_spacing + (i * BAR_WIDTH), CANVAS_HEIGHT - values[i], BAR_WIDTH - BAR_SPACING, values[i]);
         }

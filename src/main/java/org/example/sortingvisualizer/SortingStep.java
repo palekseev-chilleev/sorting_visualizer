@@ -1,19 +1,14 @@
 package org.example.sortingvisualizer;
 
 public class SortingStep {
-    private final int[] values;
-    private int sorting_step_id;
+    protected final int[] values;
 
     public int[] getValues(){
-        return this.values;
+        return values;
     }
 
     public SortingStep(int[] steps) {
-        this.values = steps;
+        values = steps;
     }
 
-    public SortingStep(int[] steps, int step_id) {
-        this.values = steps;
-        this.sorting_step_id = step_id;
-    }
 }
