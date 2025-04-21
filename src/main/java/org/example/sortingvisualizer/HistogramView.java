@@ -49,6 +49,7 @@ public class HistogramView extends Application {
 //        generateRandomArray((CANVAS_WIDTH/2)-30, 1000);
         generateRandomArray(270, 1000);
         sorter_obj = new BubbleSorting(unsorted_array);
+//        sorter_obj = new QuickSorting(unsorted_array);
         current_step_index = 0;
     }
 
