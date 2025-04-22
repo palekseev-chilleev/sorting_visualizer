@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/QuickSortingSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/QuickSortingSteps.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,23 +90,23 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
-          <line>38</line>
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
-          <line>44</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
           <line>96</line>
-          <option name="timeStamp" value="63" />
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
+          <line>24</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
+          <line>141</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -114,11 +115,5 @@
         <PinnedItemInfo parentTag="org.example.sortingvisualizer.MergeSortingStep" memberName="values" />
       </pinned-members>
     </pin-to-top-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="result.length" language="JAVA" />
-        <watch expression="right_sub_array.length" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>
