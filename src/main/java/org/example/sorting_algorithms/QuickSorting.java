@@ -1,13 +1,13 @@
 package org.example.sorting_algorithms;
 
-import org.example.sortingvisualizer.MergeSortingStep;
-import org.example.sortingvisualizer.QuickSortingSteps;
+import org.example.sortingvisualizer.QuickSortingStep;
 import org.example.sortingvisualizer.SortingStep;
 
 import java.util.ArrayList;
 
 public class QuickSorting extends NumbersSorting {
-    ArrayList<MergeSortingStep> recursion_steps;
+    ArrayList<QuickSortingStep> recursion_steps;
+
     public QuickSorting(int[] new_unsorted_array) {
         super(new_unsorted_array);
     }
@@ -20,97 +20,42 @@ public class QuickSorting extends NumbersSorting {
     }
 
     private void buildSortingSteps() {
-        // int total_steps = 2 * (int) Math.floor(Math.log(unsorted_data.length) / Math.log(2));
-        // Taking way to much steps prediction just in case.
-        int total_steps = (int) Math.sqrt(unsorted_data.length);
-
         int actual_steps = 0;
-        for (MergeSortingStep s : recursion_steps){
-            if (s.recursion_depth>actual_steps)
-                actual_steps=s.recursion_depth;
+        for (QuickSortingStep s : recursion_steps) {
+            if (s.recursion_depth > actual_steps)
+                actual_steps = s.recursion_depth;
         }
-        actual_steps++;
-        ArrayList<MergeSortingStep> steps_to_delete = new ArrayList<>();
 
         for (int i = 0; i < actual_steps; i++) {
-            int[] step = {};
-            for (MergeSortingStep s : recursion_steps) {
-                if (s.recursion_depth == i) {
-                    step = concatArrays(step, s.getValues());
-                    steps_to_delete.add(s);
-                }
+            int[] step = sorted_data.clone();
+            ArrayList<QuickSortingStep> one_recursion_steps = new ArrayList<>();
+            for (QuickSortingStep s : recursion_steps) {
+                if (s.recursion_depth == i + 1)
+                    if (one_recursion_steps.size() == 0)
+                        one_recursion_steps.add(s);
+                    else if (s.comparative_element > one_recursion_steps.get(0).comparative_element)
+                        one_recursion_steps.addLast(s);
+                    else
+                        one_recursion_steps.addFirst(s);
             }
-            if (step.length > 1)
-                // Calculated total steps amount may be different from actual.
-                // In this case empty step will be added.
-                sorting_steps.add(0, new SortingStep(step));
-            for (MergeSortingStep s : steps_to_delete) {
-                recursion_steps.remove(s);
+            for (QuickSortingStep ors : one_recursion_steps) {
+                int comparative_element_id = -1;
+                if (comparative_element_id == ors.comparative_element)
+                    continue;
+                for (int j = 0; step[j] != ors.comparative_element; j++)
+                    comparative_element_id = j;
+                System.arraycopy(ors.left_array, 0, step, comparative_element_id - ors.left_array.length + 1, ors.left_array.length);
+                System.arraycopy(ors.right_array, 0, step, comparative_element_id + 1, ors.right_array.length);
             }
+            sorting_steps.add(new SortingStep(step));
         }
-
-        sorting_steps.remove(sorting_steps.size() - 1);
-
-    }
-
-
-//    private void buildSortingSteps() {
-//        // int total_steps = 2 * (int) Math.floor(Math.log(unsorted_data.length) / Math.log(2));
-//        // Taking way to much steps prediction just in case.
-//        int total_steps = (int) Math.sqrt(unsorted_data.length);
-//
-//        int actual_steps = 0;
-//        for (QuickSortingSteps s : recursion_steps){
-//            if (s.recursion_depth>actual_steps)
-//                actual_steps=s.recursion_depth;
-//        }
-//        actual_steps++;
-//        ArrayList<QuickSortingSteps> steps_to_delete = new ArrayList<>();
-//
-//        for (int i = 0; i < actual_steps; i++) {
-//            int[] step = {};
-//            for (QuickSortingSteps s : recursion_steps) {
-//                if (s.recursion_depth == i) {
-//                    if(s.comparative_element == -1){
-////                        step = new int[1];
-//                        step = concatArrays(step, s.left_array);
-//                    }
-//                    else {
-//                        step = new int[s.left_array.length + s.right_array.length + 1];
-//                        System.arraycopy(s.left_array, 0, step, 0, s.left_array.length);
-//                        System.arraycopy(s.right_array, 0, step, s.left_array.length + 1, s.right_array.length);
-//                        step[s.left_array.length] = s.comparative_element;
-//                    }
-//
-//                    steps_to_delete.add(s);
-//                }
-//            }
-//            if (step.length > 1)
-//                // Calculated total steps amount may be different from actual.
-//                // In this case empty step will be added.
-//                sorting_steps.add(0, new SortingStep(step));
-//            for (QuickSortingSteps s : steps_to_delete) {
-//                recursion_steps.remove(s);
-//            }
-//        }
-//
-////        sorting_steps.remove(sorting_steps.size() - 1);
-//
-//    }
-
-    protected int[] concatArrays(int[] array_a, int[] array_b) {
-        int[] result = new int[array_a.length + array_b.length];
-        System.arraycopy(array_a, 0, result, 0, array_a.length);
-        System.arraycopy(array_b, 0, result, array_a.length, array_b.length);
-        return result;
     }
 
     private int[] reqursiveQuickSorting(int[] sub_array, int recursion_depth) {
         recursion_depth++;
         if (sub_array.length <= 1) {
-            recursion_steps.add(new MergeSortingStep(sub_array.clone(), recursion_depth));
-//            recursion_steps.add(new QuickSortingSteps(
-//                    recursion_depth, sub_array.clone(),  null, -1));
+            recursion_steps.add(new QuickSortingStep(
+                    recursion_depth, sub_array.clone(), null, -1));
             return sub_array;
         } else {
             int comparative_element = sub_array[sub_array.length - 1];
@@ -135,14 +80,8 @@ public class QuickSorting extends NumbersSorting {
                     r++;
                 }
             }
-//            recursion_steps.add(new QuickSortingSteps(
-//                    recursion_depth, left_sub_array.clone(),  right_sub_array.clone(), comparative_element));
-            int[] result = mergeSubArrays(left_sub_array, comparative_element,
-                    right_sub_array, recursion_depth);
-            recursion_steps.add(new MergeSortingStep(result.clone(), recursion_depth));
-//            int[] ci = new int[1];
-//            ci[0] = comparative_element;
-//            recursion_steps.add(new MergeSortingStep(ci, recursion_depth + 1));
+            recursion_steps.add(new QuickSortingStep(
+                    recursion_depth, left_sub_array.clone(), right_sub_array.clone(), comparative_element));
             //[234, 601, 1015, 546, 976, 292, 526, 926, 349, 253]
             return mergeSubArrays(
                     reqursiveQuickSorting(left_sub_array, recursion_depth), comparative_element,
@@ -157,9 +96,6 @@ public class QuickSorting extends NumbersSorting {
         result[left_sub_array.length] = middle_element;
         if (right_sub_array.length >= 1)
             System.arraycopy(right_sub_array, 0, result, left_sub_array.length + 1, right_sub_array.length);
-//        recursion_steps.add(new QuickSortingSteps(
-//                recur_step, left_sub_array.clone(),  right_sub_array.clone(), middle_element));
-//        recursion_steps.add(new MergeSortingStep(result.clone(), recur_step));
         return result;
     }
 }

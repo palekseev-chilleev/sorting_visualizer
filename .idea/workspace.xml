@@ -8,7 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/QuickSortingSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/QuickSortingSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/QuickSortingSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/QuickSortingStep.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,26 +88,6 @@
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
-          <line>96</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java</url>
-          <line>141</line>
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
