@@ -20,6 +20,13 @@ public class QuickSorting extends NumbersSorting {
     }
 
     private void buildSortingSteps() {
+        /*
+        The idea is if a sub array consists of 1 element -- it is sorted.
+        I find the depth of recursion and create a list of steps with the recursion steps length.
+        Each step is filled at first with sorted values. With each recursion depth I substitute
+        sub arrays of sorted step with unsorted sub arrays. I substitute by knowing of
+        comparative elements.
+         */
         int actual_steps = 0;
         for (QuickSortingStep s : recursion_steps) {
             if (s.recursion_depth > actual_steps)
@@ -82,14 +89,13 @@ public class QuickSorting extends NumbersSorting {
             }
             recursion_steps.add(new QuickSortingStep(
                     recursion_depth, left_sub_array.clone(), right_sub_array.clone(), comparative_element));
-            //[234, 601, 1015, 546, 976, 292, 526, 926, 349, 253]
             return mergeSubArrays(
                     reqursiveQuickSorting(left_sub_array, recursion_depth), comparative_element,
-                    reqursiveQuickSorting(right_sub_array, recursion_depth), recursion_depth);
+                    reqursiveQuickSorting(right_sub_array, recursion_depth));
         }
     }
 
-    private int[] mergeSubArrays(int[] left_sub_array, int middle_element, int[] right_sub_array, int recur_step) {
+    private int[] mergeSubArrays(int[] left_sub_array, int middle_element, int[] right_sub_array) {
         int[] result = new int[left_sub_array.length + right_sub_array.length + 1];
         if (left_sub_array.length >= 1)
             System.arraycopy(left_sub_array, 0, result, 0, left_sub_array.length);
