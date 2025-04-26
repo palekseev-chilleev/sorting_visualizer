@@ -12,7 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.sorting_algorithms.*;
@@ -44,7 +49,14 @@ public class HistogramView extends Application {
     // depends on canvas width
     private static int max_array_length;
 
-    private ArrayList<Control> active_controls = new ArrayList<>();
+    LineChart<Number, Number> orderednessChart;
+    XYChart.Series<Number, Number> series;
+
+    private String statsString;
+    private Text statsText;
+
+
+    private final ArrayList<Control> active_controls = new ArrayList<>();
 
     public static void setParams(int width, int height) {
         CANVAS_WIDTH = width;
@@ -132,13 +144,14 @@ public class HistogramView extends Application {
             try {
                 Class<? extends Sorting> sorterClass = sorter_obj.getClass();
                 Constructor<? extends Sorting> constructor = sorterClass.getConstructor(int[].class);
-                sorter_obj = constructor.newInstance(unsorted_array);
+                sorter_obj = constructor.newInstance((Object) unsorted_array);
                 drawStep(sorter_obj.getZeroSortingStep());
                 current_step_index = 0;
             } catch (Exception e) {
                 e.printStackTrace();
             }
             drawStep(sorter_obj.getZeroSortingStep());
+            setChartSeries();
             current_step_index = 0;
         });
 
@@ -159,6 +172,25 @@ public class HistogramView extends Application {
         prevStepButton.setOnAction(event -> handleStepButtons(false));
         active_controls.add(prevStepButton);
 
+        NumberAxis xAxis = new NumberAxis();
+        xAxis.setLabel("Step");
+
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Inversions");
+
+        orderednessChart = new LineChart<>(xAxis, yAxis);
+        orderednessChart.setTitle("Array Orderedness Over Steps");
+        orderednessChart.setCreateSymbols(false);
+        orderednessChart.setLegendVisible(false);
+
+        series = new XYChart.Series<>();
+        series.setName("Inversions");
+        setChartSeries();
+
+        statsText = new Text(statsString);
+        statsText.setFont(Font.font(16));
+        statsText.setFill(Color.BLACK);
+
         HBox root = new HBox();
         root.setSpacing(20);
         root.setPadding(new Insets(20));
@@ -173,13 +205,28 @@ public class HistogramView extends Application {
         canvasAndLowControls.setSpacing(10);
         canvasAndLowControls.getChildren().addAll(canvasWrapper, lowControlPanel);
 
-        VBox rightControlPanel = new VBox(startButton, revertButton, shuffleButton, bubbleButton, selectionButton,
-                insertionButton, doubleInsertionButton, mergeButton, quickButton, navigationBox);
+        VBox buttonsBox = new VBox(startButton, revertButton, shuffleButton, navigationBox);
+        buttonsBox.setSpacing(10);
+        buttonsBox.setAlignment(Pos.CENTER);
+        VBox radioButtonsBox = new VBox(bubbleButton, selectionButton,
+                insertionButton, doubleInsertionButton, mergeButton, quickButton);
+        radioButtonsBox.setSpacing(10);
+        HBox allButtonsBox = new HBox(buttonsBox, radioButtonsBox);
+        allButtonsBox.setSpacing(10);
+
+        updateStatsText();
+        VBox chartAndStats = new VBox(orderednessChart, statsText);
+
+
+        VBox rightControlPanel = new VBox(allButtonsBox, chartAndStats);
+
         rightControlPanel.setSpacing(10);
         rightControlPanel.setAlignment(Pos.TOP_CENTER);
+
+
         root.getChildren().addAll(canvasAndLowControls, rightControlPanel);
 
-        Scene scene = new Scene(root, CANVAS_WIDTH + CONTROL_PANE_WIDTH + 80, CANVAS_HEIGHT + 100);
+        Scene scene = new Scene(root, CANVAS_WIDTH + CONTROL_PANE_WIDTH + 280, CANVAS_HEIGHT + 100);
 
         primaryStage.setTitle("org.example.sorting_algorithms.Sorting Visualizer");
         primaryStage.setScene(scene);
@@ -189,6 +236,30 @@ public class HistogramView extends Application {
         calculateBarWidth();
         drawStep(sorter_obj.getZeroSortingStep());
         current_step_index = 0;
+    }
+
+    private void updateStatsText() {
+        statsString = String.format(
+                "%-15s %s\n%-15s %s\n%-15s %s",
+                "Steps:", sorter_obj.getSortingSteps().size(),
+                "Memory used:", (sorter_obj.getMemoryUsed() / 1024) + " KB",
+                "Execution time:", sorter_obj.getTimeUsed() + " ns"
+        );
+        statsText.setText(statsString);
+    }
+
+    private void setChartSeries() {
+        series.getData().clear();
+        for (int i = 0; i < sorter_obj.getSortingSteps().size(); i++)
+            series.getData().add(new XYChart.Data<>(i, sorter_obj.getStepsInversions()[i]));
+        orderednessChart.getData().add(series);
+    }
+
+    private void updateChart() {
+        setDisabledActiveControls(true);
+        orderednessChart.getData().clear();
+        setChartSeries();
+        setDisabledActiveControls(false);
     }
 
     private void handleStepButtons(boolean forward) {
@@ -227,7 +298,8 @@ public class HistogramView extends Application {
                 sorter_obj = new MergeSorting(unsorted_array);
                 break;
         }
-
+        updateChart();
+        updateStatsText();
         System.out.println("Selected algorithm: " + type);
     }
 
@@ -286,7 +358,6 @@ public class HistogramView extends Application {
         for (Control c : active_controls) {
             c.setDisable(v);
         }
-
     }
 
     private void drawStep(SortingStep step) {
@@ -294,7 +365,6 @@ public class HistogramView extends Application {
         int[] values = step.getValues();
         values = normalizeValues(values, 10, CANVAS_HEIGHT - 10);
         calculateBarWidth();
-//        int side_spacing = abs(CANVAS_WIDTH - (values.length * (BAR_WIDTH + BAR_SPACING) - BAR_SPACING)) / 2;
         int side_spacing = abs(CANVAS_WIDTH - (values.length * BAR_WIDTH - BAR_SPACING)) / 2;
         for (int i = 0; i < values.length; i++) {
             double intensity = (double) values[i] / CANVAS_HEIGHT;

@@ -8,14 +8,40 @@ abstract public class NumbersSorting implements Sorting {
     protected int[] unsorted_data;
     protected int[] sorted_data;
     protected ArrayList<SortingStep> sorting_steps;
-
+    protected int[] steps_inversions;
+    long memory_used;
+    long time_used;
 
     public NumbersSorting(int[] new_unsorted_array) {
         sorting_steps = new ArrayList<>();
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long before = runtime.totalMemory() - runtime.freeMemory();
+
         setData(new_unsorted_array);
         sorting_steps.add(new SortingStep(unsorted_data.clone()));
+
+//        long startTime = System.nanoTime();
         performSorting();
+//        long endTime = System.nanoTime();
+
+        long after = runtime.totalMemory() - runtime.freeMemory();
+        memory_used = after - before;
         verifySorting();
+        countInversions();
+//        time_used = endTime - startTime;
+
+        // Gathering memory statistic is affects sorting time. Measuring time separately.
+        measureTimeUsed();
+    }
+
+    private void measureTimeUsed(){
+        long startTime = System.nanoTime();
+        performSorting();
+        long endTime = System.nanoTime();
+//        long durationNano =
+//        time_used = (endTime - startTime) / 1_000_000;
+        time_used = endTime - startTime;
     }
 
     public void shuffleArray() {
@@ -53,7 +79,7 @@ abstract public class NumbersSorting implements Sorting {
         return sorting_steps.getFirst();
     }
 
-    public SortingStep getSortingStepByIndex(int index){
+    public SortingStep getSortingStepByIndex(int index) {
         return sorting_steps.get(index);
     }
 
@@ -69,5 +95,27 @@ abstract public class NumbersSorting implements Sorting {
             System.out.println("Actual result:");
         }
         return res;
+    }
+
+    private void countInversions() {
+        steps_inversions = new int[sorting_steps.size()];
+        for (int i = 0; i < steps_inversions.length; i++) {
+            sorting_steps.get(i).getValues();
+            for (int j = 0; j < sorted_data.length; j++)
+                if (sorted_data[j] != sorting_steps.get(i).getValues()[j])
+                    steps_inversions[i]++;
+        }
+    }
+
+    public int[] getStepsInversions() {
+        return steps_inversions;
+    }
+
+    public long getMemoryUsed(){
+        return memory_used;
+    }
+
+    public long getTimeUsed(){
+        return time_used;
     }
 }

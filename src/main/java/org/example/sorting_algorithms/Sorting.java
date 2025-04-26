@@ -20,4 +20,9 @@ public interface Sorting {
 
     public SortingStep getSortingStepByIndex(int index);
 
+    public int[] getStepsInversions();
+
+    public long getMemoryUsed();
+    public long getTimeUsed();
+
 }
