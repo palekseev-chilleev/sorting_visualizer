@@ -2,8 +2,6 @@ package org.example.sorting_algorithms;
 
 import org.example.sortingvisualizer.SortingStep;
 
-import java.util.ArrayList;
-
 public class InsertionSorting extends NumbersSorting {
     public InsertionSorting(int[] new_unsorted_array) {
         super(new_unsorted_array);

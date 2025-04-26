@@ -14,6 +14,8 @@ public interface Sorting {
 
     public int[] getSortedData();
 
+    public int[] getUnsortedData();
+
     public SortingStep getZeroSortingStep();
 
     public ArrayList<SortingStep> getSortingSteps();
@@ -23,6 +25,7 @@ public interface Sorting {
     public int[] getStepsInversions();
 
     public long getMemoryUsed();
+
     public long getTimeUsed();
 
 

@@ -1,7 +1,8 @@
 package org.example.sorting_algorithms;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import org.example.sortingvisualizer.SortingStep;
 
 abstract public class NumbersSorting implements Sorting {
@@ -26,23 +27,23 @@ abstract public class NumbersSorting implements Sorting {
         countInversions();
     }
 
-    protected void buildSortingSteps() {}
+    protected void buildSortingSteps() {
+    }
 
-    private void measureTimeUsed(){
+    private void measureTimeUsed() {
         long startTime = System.nanoTime();
         performSorting();
         long endTime = System.nanoTime();
         time_used = endTime - startTime;
     }
 
-    private void measureMemoryUsed(){
+    private void measureMemoryUsed() {
         Runtime runtime = Runtime.getRuntime();
         runtime.gc();
         long before = runtime.totalMemory() - runtime.freeMemory();
         performSorting();
         long after = runtime.totalMemory() - runtime.freeMemory();
         memory_used = after - before;
-
     }
 
     public void shuffleArray() {
@@ -70,22 +71,27 @@ abstract public class NumbersSorting implements Sorting {
         unsorted_data = new_unsorted_array.clone();
     }
 
+    @Override
     public int[] getUnsortedData() {
         return unsorted_data;
     }
 
+    @Override
     public int[] getSortedData() {
         return sorted_data;
     }
 
+    @Override
     public ArrayList<SortingStep> getSortingSteps() {
         return sorting_steps;
     }
 
+    @Override
     public SortingStep getZeroSortingStep() {
         return sorting_steps.getFirst();
     }
 
+    @Override
     public SortingStep getSortingStepByIndex(int index) {
         return sorting_steps.get(index);
     }
@@ -96,9 +102,9 @@ abstract public class NumbersSorting implements Sorting {
         Arrays.sort(tmp);
         boolean res = Arrays.equals(tmp, sorted_data);
         if (res) {
-            System.out.println("Array is sorted correctly with " + this.toString() + " class object.");
+            System.out.println("Array is sorted correctly with " + this + " class object.");
         } else {
-            System.out.println("Array is not sorted correctly! " + this.toString() + " class is not working properly!\n" + "Correct sorting: ");
+            System.out.println("Array is not sorted correctly! " + this + " class is not working properly!\n" + "Correct sorting: ");
             System.out.println("Actual result:");
         }
         return res;
@@ -118,11 +124,11 @@ abstract public class NumbersSorting implements Sorting {
         return steps_inversions;
     }
 
-    public long getMemoryUsed(){
+    public long getMemoryUsed() {
         return memory_used;
     }
 
-    public long getTimeUsed(){
+    public long getTimeUsed() {
         return time_used;
     }
 }

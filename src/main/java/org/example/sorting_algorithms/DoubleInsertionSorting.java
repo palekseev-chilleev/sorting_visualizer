@@ -36,7 +36,7 @@ public class DoubleInsertionSorting extends NumbersSorting {
             sorted_data_res[min_id] = sorted_data_res[i];
             sorted_data_res[i] = min;
         }
-        this.sorted_data = sorted_data_res;
+        sorted_data = sorted_data_res;
     }
 
     @Override

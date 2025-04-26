@@ -40,6 +40,7 @@ public class HistogramView extends Application {
     private static int CANVAS_WIDTH;
     private static int CANVAS_HEIGHT;
     private static int BAR_SPACING = 1;
+    private static int ANIMATION_DELAY = 50;
 
     private GraphicsContext gc;
     private static int[] unsorted_array;
@@ -221,22 +222,23 @@ public class HistogramView extends Application {
         VBox radioButtonsBox = new VBox(bubbleButton, selectionButton,
                 insertionButton, doubleInsertionButton, mergeButton, quickButton);
         radioButtonsBox.setSpacing(10);
+        radioButtonsBox.setAlignment(Pos.BASELINE_LEFT);
         HBox allButtonsBox = new HBox(buttonsBox, radioButtonsBox);
         allButtonsBox.setSpacing(10);
+        allButtonsBox.setAlignment(Pos.CENTER);
 
         updateStatsText();
         VBox chartAndStats = new VBox(orderednessChart, statsText);
-
+        chartAndStats.setSpacing(10);
 
         VBox rightControlPanel = new VBox(allButtonsBox, chartAndStats);
 
         rightControlPanel.setSpacing(10);
         rightControlPanel.setAlignment(Pos.TOP_CENTER);
 
-
         root.getChildren().addAll(canvasAndLowControls, rightControlPanel);
 
-        Scene scene = new Scene(root, CANVAS_WIDTH + CONTROL_PANE_WIDTH + 280, CANVAS_HEIGHT + 100);
+        Scene scene = new Scene(root, CANVAS_WIDTH + CONTROL_PANE_WIDTH + 400, CANVAS_HEIGHT + 100);
 
         primaryStage.setTitle("org.example.sorting_algorithms.Sorting Visualizer");
         primaryStage.setScene(scene);
@@ -250,7 +252,7 @@ public class HistogramView extends Application {
 
     private void updateStatsText() {
         statsString = String.format(
-                "%-15s %s\n%-15s %s\n%-15s %s",
+                "%-15s\t\t%s\n%-15s %s\n%-15s\t%s",
                 "Steps:", sorter_obj.getSortingSteps().size(),
                 "Memory used:", (sorter_obj.getMemoryUsed() / 1024) + " KB",
                 "Execution time:", sorter_obj.getTimeUsed() + " ns"
@@ -321,6 +323,7 @@ public class HistogramView extends Application {
 
     private void shuffleNumbers() {
         sorter_obj.shuffleArray();
+        unsorted_array = sorter_obj.getUnsortedData();
         drawStep(sorter_obj.getZeroSortingStep());
         current_step_index = 0;
         updateChart();
@@ -354,10 +357,9 @@ public class HistogramView extends Application {
         setDisabledActiveControls(true);
         Timeline timeline = new Timeline();
         ArrayList<SortingStep> sorting_steps = sorter_obj.getSortingSteps();
-        int delay = 50; // Скорость анимации
         for (int i = 0; i < sorting_steps.size(); i++) {
             SortingStep step = sorting_steps.get(i);
-            KeyFrame keyFrame = new KeyFrame(Duration.millis(delay * i), e -> {
+            KeyFrame keyFrame = new KeyFrame(Duration.millis(ANIMATION_DELAY * i), e -> {
                 drawStep(step);
             });
             current_step_index = i;
