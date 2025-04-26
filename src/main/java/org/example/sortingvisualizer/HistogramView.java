@@ -20,6 +20,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.animation.PauseTransition;
 import org.example.sorting_algorithms.*;
 
 import java.lang.reflect.Constructor;
@@ -55,6 +56,8 @@ public class HistogramView extends Application {
     private String statsString;
     private Text statsText;
 
+    private PauseTransition pause;
+
 
     private final ArrayList<Control> active_controls = new ArrayList<>();
 
@@ -82,6 +85,8 @@ public class HistogramView extends Application {
         canvasWrapper.setStyle("-fx-border-color: black; -fx-border-width: 2;");
 
         gc = canvas.getGraphicsContext2D();
+
+        pause =new PauseTransition(Duration.millis(300));
 
         Button startButton = new Button("Start Sort");
         startButton.setOnAction(e -> animateSort());
@@ -140,19 +145,24 @@ public class HistogramView extends Application {
         arrayLengthSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             array_length = newVal.intValue();
             arrayLengthLabel.setText("Array Size: " + array_length);
-            generateRandomArray(array_length, 1000);
-            try {
-                Class<? extends Sorting> sorterClass = sorter_obj.getClass();
-                Constructor<? extends Sorting> constructor = sorterClass.getConstructor(int[].class);
-                sorter_obj = constructor.newInstance((Object) unsorted_array);
-                drawStep(sorter_obj.getZeroSortingStep());
-                current_step_index = 0;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            drawStep(sorter_obj.getZeroSortingStep());
-            setChartSeries();
-            current_step_index = 0;
+
+            pause.stop();
+
+            pause.setOnFinished(event -> {
+                generateRandomArray(array_length, 1000);
+                try {
+                    Class<? extends Sorting> sorterClass = sorter_obj.getClass();
+                    Constructor<? extends Sorting> constructor = sorterClass.getConstructor(int[].class);
+                    sorter_obj = constructor.newInstance(unsorted_array);
+                    drawStep(sorter_obj.getZeroSortingStep());
+                    current_step_index = 0;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            pause.playFromStart();
+            updateChart();
+            updateStatsText();
         });
 
         bubbleButton.setSelected(true);
@@ -250,6 +260,7 @@ public class HistogramView extends Application {
 
     private void setChartSeries() {
         series.getData().clear();
+        orderednessChart.getData().clear();
         for (int i = 0; i < sorter_obj.getSortingSteps().size(); i++)
             series.getData().add(new XYChart.Data<>(i, sorter_obj.getStepsInversions()[i]));
         orderednessChart.getData().add(series);
@@ -312,6 +323,8 @@ public class HistogramView extends Application {
         sorter_obj.shuffleArray();
         drawStep(sorter_obj.getZeroSortingStep());
         current_step_index = 0;
+        updateChart();
+        updateStatsText();
     }
 
     private void calculateBarWidth() {

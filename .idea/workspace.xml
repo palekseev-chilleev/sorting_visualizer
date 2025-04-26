@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="cb8457f9-daba-4d24-8930-379f929f1282" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/DoubleInsertionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/DoubleInsertionSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/InsertionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/InsertionSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" afterDir="false" />
     </list>
@@ -88,11 +94,6 @@
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java</url>
-          <line>253</line>
-          <option name="timeStamp" value="99" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

@@ -25,4 +25,5 @@ public interface Sorting {
     public long getMemoryUsed();
     public long getTimeUsed();
 
+
 }

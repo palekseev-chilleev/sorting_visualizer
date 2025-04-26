@@ -14,34 +14,35 @@ abstract public class NumbersSorting implements Sorting {
 
     public NumbersSorting(int[] new_unsorted_array) {
         sorting_steps = new ArrayList<>();
-        Runtime runtime = Runtime.getRuntime();
-        runtime.gc();
-        long before = runtime.totalMemory() - runtime.freeMemory();
-
         setData(new_unsorted_array);
-        sorting_steps.add(new SortingStep(unsorted_data.clone()));
 
-//        long startTime = System.nanoTime();
         performSorting();
-//        long endTime = System.nanoTime();
-
-        long after = runtime.totalMemory() - runtime.freeMemory();
-        memory_used = after - before;
         verifySorting();
-        countInversions();
-//        time_used = endTime - startTime;
 
-        // Gathering memory statistic is affects sorting time. Measuring time separately.
         measureTimeUsed();
+        measureMemoryUsed();
+
+        buildSortingSteps();
+        countInversions();
     }
+
+    protected void buildSortingSteps() {}
 
     private void measureTimeUsed(){
         long startTime = System.nanoTime();
         performSorting();
         long endTime = System.nanoTime();
-//        long durationNano =
-//        time_used = (endTime - startTime) / 1_000_000;
         time_used = endTime - startTime;
+    }
+
+    private void measureMemoryUsed(){
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long before = runtime.totalMemory() - runtime.freeMemory();
+        performSorting();
+        long after = runtime.totalMemory() - runtime.freeMemory();
+        memory_used = after - before;
+
     }
 
     public void shuffleArray() {
@@ -56,6 +57,12 @@ abstract public class NumbersSorting implements Sorting {
         sorting_steps.add(new SortingStep(unsorted_data.clone()));
         performSorting();
         verifySorting();
+
+        measureTimeUsed();
+        measureMemoryUsed();
+
+        buildSortingSteps();
+        countInversions();
     }
 
 
