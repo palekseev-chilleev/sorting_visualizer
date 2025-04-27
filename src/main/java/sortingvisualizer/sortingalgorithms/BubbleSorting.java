@@ -1,6 +1,6 @@
-package org.example.sorting_algorithms;
+package sortingvisualizer.sortingalgorithms;
 
-import org.example.sortingvisualizer.SortingStep;
+import sortingvisualizer.visualizer.SortingStep;
 
 
 public class BubbleSorting extends NumbersSorting {

@@ -1,4 +1,4 @@
-package org.example.sortingvisualizer;
+package sortingvisualizer.visualizer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

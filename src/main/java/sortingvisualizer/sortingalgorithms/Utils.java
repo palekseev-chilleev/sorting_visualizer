@@ -1,4 +1,4 @@
-package org.example.sorting_algorithms;
+package sortingvisualizer.sortingalgorithms;
 
 import java.lang.Math;
 

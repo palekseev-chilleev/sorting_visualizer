@@ -1,4 +1,4 @@
-package org.example.sortingvisualizer;
+package sortingvisualizer.visualizer;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
-import org.example.sorting_algorithms.*;
+import sortingvisualizer.sortingalgorithms.*;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -240,7 +240,7 @@ public class HistogramView extends Application {
 
         Scene scene = new Scene(root, CANVAS_WIDTH + CONTROL_PANE_WIDTH + 400, CANVAS_HEIGHT + 100);
 
-        primaryStage.setTitle("org.example.sorting_algorithms.Sorting Visualizer");
+        primaryStage.setTitle("sorting_visualizer.sorting_algorithms.Sorting Visualizer");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();
         primaryStage.show();

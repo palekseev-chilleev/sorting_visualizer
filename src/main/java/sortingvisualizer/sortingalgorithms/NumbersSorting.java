@@ -1,9 +1,9 @@
-package org.example.sorting_algorithms;
+package sortingvisualizer.sortingalgorithms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import org.example.sortingvisualizer.SortingStep;
+import sortingvisualizer.visualizer.SortingStep;
 
 abstract public class NumbersSorting implements Sorting {
     protected int[] unsorted_data;

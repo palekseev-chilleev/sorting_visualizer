@@ -1,4 +1,4 @@
-package org.example.sortingvisualizer;
+package sortingvisualizer.visualizer;
 
 public class SortingStep {
     protected final int[] values;

@@ -11,6 +11,6 @@ module org.example.sortingvisualizer {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
 
-    opens org.example.sortingvisualizer to javafx.fxml;
-    exports org.example.sortingvisualizer;
+    opens sortingvisualizer.visualizer to javafx.fxml;
+    exports sortingvisualizer.visualizer;
 }

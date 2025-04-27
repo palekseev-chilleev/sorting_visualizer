@@ -1,7 +1,7 @@
-package org.example.sorting_algorithms;
+package sortingvisualizer.sortingalgorithms;
 
-import org.example.sortingvisualizer.QuickSortingStep;
-import org.example.sortingvisualizer.SortingStep;
+import sortingvisualizer.visualizer.QuickSortingStep;
+import sortingvisualizer.visualizer.SortingStep;
 
 import java.util.ArrayList;
 

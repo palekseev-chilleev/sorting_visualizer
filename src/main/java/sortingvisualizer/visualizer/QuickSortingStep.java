@@ -1,4 +1,4 @@
-package org.example.sortingvisualizer;
+package sortingvisualizer.visualizer;
 
 public class QuickSortingStep {
     public int recursion_depth;

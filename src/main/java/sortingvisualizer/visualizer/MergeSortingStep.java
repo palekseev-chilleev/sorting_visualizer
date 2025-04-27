@@ -1,4 +1,4 @@
-package org.example.sortingvisualizer;
+package sortingvisualizer.visualizer;
 
 public class MergeSortingStep extends SortingStep{
     public int recursion_depth;
