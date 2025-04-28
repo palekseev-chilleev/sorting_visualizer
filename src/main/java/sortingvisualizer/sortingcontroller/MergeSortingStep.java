@@ -1,6 +1,8 @@
-package sortingvisualizer.visualizer;
+package sortingvisualizer.sortingcontroller;
 
-public class MergeSortingStep extends SortingStep{
+import sortingvisualizer.visualizer.SortingStep;
+
+public class MergeSortingStep extends SortingStep {
     public int recursion_depth;
 
     public MergeSortingStep(int[] steps, int curr_recursion_depth) {

@@ -9,6 +9,8 @@ I implemented several classic sorting algorithms with step-by-step visual animat
 - **Charting the degree of sortedness over each step**
 
 The project was built as part of my personal portfolio to showcase my skills in **Java**, **UI development with JavaFX**, and **building clean application architecture**.
+Unfortunately sorting statistic is not showing huge difference between algorithms because of the scale. I believe the reasonable difference in time and memory usage will be case of arrays of 10^6 of elements. But in this scale visualisation seems impossible and makes no sense.
+But you can use sorting algorithms on a big scale separately.
 
 ## Features
 - Visualization of multiple sorting algorithms (Bubble Sort, Quick Sort, Merge Sort, etc.)

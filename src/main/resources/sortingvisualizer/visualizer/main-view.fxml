@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      spacing="20" padding="20">
+
+    <VBox spacing="10">
+        <StackPane>
+            <Canvas fx:id="canvas" width="800" height="600"/>
+        </StackPane>
+
+        <HBox>
+            <VBox spacing="5">
+                <Slider fx:id="arrayLengthSlider" min="10" max="1000" blockIncrement="10" majorTickUnit="100" minorTickCount="10" showTickMarks="true" showTickLabels="true" prefWidth="800"/>
+                <Label fx:id="arrayLengthLabel" text="Array Size: 0"/>
+            </VBox>
+        </HBox>
+    </VBox>
+
+    <VBox spacing="10" alignment="TOP_CENTER">
+        <HBox spacing="10" alignment="CENTER">
+            <VBox spacing="10" alignment="CENTER">
+                <Button fx:id="startButton" text="Start Sort"/>
+                <Button fx:id="revertButton" text="Revert Sort"/>
+                <Button fx:id="shuffleButton" text="Shuffle Sort"/>
+
+                <HBox spacing="10">
+                    <Button fx:id="prevStepButton" text="Prev step"/>
+                    <Button fx:id="nextStepButton" text="Next step"/>
+                </HBox>
+            </VBox>
+
+            <VBox spacing="10" alignment="BASELINE_LEFT">
+                <RadioButton fx:id="bubbleButton" text="Bubble" toggleGroup="$sortingAlgorithmsGroup"/>
+                <RadioButton fx:id="selectionButton" text="Selection" toggleGroup="$sortingAlgorithmsGroup"/>
+                <RadioButton fx:id="insertionButton" text="Insertion" toggleGroup="$sortingAlgorithmsGroup"/>
+                <RadioButton fx:id="doubleInsertionButton" text="Double Insertion" toggleGroup="$sortingAlgorithmsGroup"/>
+                <RadioButton fx:id="mergeButton" text="Merge" toggleGroup="$sortingAlgorithmsGroup"/>
+                <RadioButton fx:id="quickButton" text="Quick" toggleGroup="$sortingAlgorithmsGroup"/>
+            </VBox>
+        </HBox>
+
+        <VBox spacing="10">
+            <LineChart fx:id="orderednessChart" createSymbols="false" legendVisible="false">
+                <xAxis>
+                    <NumberAxis label="Step"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Inversions"/>
+                </yAxis>
+            </LineChart>
+
+            <Text fx:id="statsText" style="-fx-font-size: 16px;" />
+        </VBox>
+    </VBox>
+
+</HBox>
+
+
+
+        <!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+<!--<?import java.lang.*?>-->
+<!--<?import java.util.*?>-->
+<!--<?import javafx.scene.*?>-->
+<!--<?import javafx.scene.control.*?>-->
+<!--<?import javafx.scene.layout.*?>-->
+
+<!--<AnchorPane xmlns="http://javafx.com/javafx"-->
+<!--            xmlns:fx="http://javafx.com/fxml"-->
+<!--            fx:controller="sortingvisualizer.visualizer.MainView"-->
+<!--            prefHeight="400.0" prefWidth="600.0">-->
+
+
+
+
+<!--</AnchorPane>-->

@@ -22,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
 import sortingvisualizer.sortingalgorithms.*;
+        import sortingvisualizer.sortingcontroller.SortingType;
+import sortingvisualizer.sortingcontroller.SortingController;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -29,12 +31,9 @@ import java.util.Random;
 
 import static java.lang.Math.abs;
 
-enum SortType {
-    BUBBLE, INSERTION, QUICK, DOUBLE_INSERTION, SELECTION, MERGE
-}
-
-
 public class HistogramView extends Application {
+    private static int max_array_length;
+
     private static int BAR_WIDTH = 20;
     private static final int CONTROL_PANE_WIDTH = 150;
     private static int CANVAS_WIDTH;
@@ -42,14 +41,9 @@ public class HistogramView extends Application {
     private static int BAR_SPACING = 1;
     private static int ANIMATION_DELAY = 50;
 
-    private GraphicsContext gc;
-    private static int[] unsorted_array;
-    private static int array_length;
-    private static Sorting sorter_obj;
-    private static int current_step_index;
 
-    // depends on canvas width
-    private static int max_array_length;
+    private static SortingController sorting_controller;
+    private GraphicsContext gc;
 
     LineChart<Number, Number> orderednessChart;
     XYChart.Series<Number, Number> series;
@@ -65,19 +59,16 @@ public class HistogramView extends Application {
     public static void setParams(int width, int height) {
         CANVAS_WIDTH = width;
         CANVAS_HEIGHT = height;
+        /* Max array length is limited by canvas width.
+        Considering 1 pixel is a space between histogram
+        columns and 1 pixel as a column width, max array
+        length is canvas width/2. Additional 2 pixels are
+         just to have some space between border of canvas
+         and columns. */
         max_array_length = CANVAS_WIDTH / 2 - 2;
-        generateRandomArray(max_array_length / 2, 1000);
-        sorter_obj = new BubbleSorting(unsorted_array);
-        current_step_index = 0;
+        sorting_controller = new SortingController(max_array_length / 2);
     }
 
-    private static void generateRandomArray(int length, int maxValue) {
-        Random rand = new Random();
-        unsorted_array = new int[length];
-        for (int i = 0; i < unsorted_array.length; i++) {
-            unsorted_array[i] = rand.nextInt(maxValue);
-        }
-    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -87,7 +78,7 @@ public class HistogramView extends Application {
 
         gc = canvas.getGraphicsContext2D();
 
-        pause =new PauseTransition(Duration.millis(300));
+        pause = new PauseTransition(Duration.millis(300));
 
         Button startButton = new Button("Start Sort");
         startButton.setOnAction(e -> animateSort());
@@ -104,35 +95,35 @@ public class HistogramView extends Application {
         ToggleGroup sortingAlgorithmsGroup = new ToggleGroup();
         RadioButton bubbleButton = new RadioButton("Bubble");
         bubbleButton.setToggleGroup(sortingAlgorithmsGroup);
-        bubbleButton.setUserData(SortType.BUBBLE);
+        bubbleButton.setUserData(SortingType.BUBBLE);
         active_controls.add(bubbleButton);
 
         RadioButton insertionButton = new RadioButton("Insertion");
         insertionButton.setToggleGroup(sortingAlgorithmsGroup);
-        insertionButton.setUserData(SortType.INSERTION);
+        insertionButton.setUserData(SortingType.INSERTION);
         active_controls.add(insertionButton);
 
         RadioButton quickButton = new RadioButton("Quick");
         quickButton.setToggleGroup(sortingAlgorithmsGroup);
-        quickButton.setUserData(SortType.QUICK);
+        quickButton.setUserData(SortingType.QUICK);
         active_controls.add(quickButton);
 
         RadioButton selectionButton = new RadioButton("Selection");
         selectionButton.setToggleGroup(sortingAlgorithmsGroup);
-        selectionButton.setUserData(SortType.SELECTION);
+        selectionButton.setUserData(SortingType.SELECTION);
         active_controls.add(selectionButton);
 
         RadioButton mergeButton = new RadioButton("Merge");
         mergeButton.setToggleGroup(sortingAlgorithmsGroup);
-        mergeButton.setUserData(SortType.MERGE);
+        mergeButton.setUserData(SortingType.MERGE);
         active_controls.add(mergeButton);
 
         RadioButton doubleInsertionButton = new RadioButton("Double Insertion");
         doubleInsertionButton.setToggleGroup(sortingAlgorithmsGroup);
-        doubleInsertionButton.setUserData(SortType.DOUBLE_INSERTION);
+        doubleInsertionButton.setUserData(SortingType.DOUBLE_INSERTION);
         active_controls.add(doubleInsertionButton);
 
-        Slider arrayLengthSlider = new Slider(10, max_array_length, unsorted_array.length);
+        Slider arrayLengthSlider = new Slider(10, max_array_length, sorting_controller.array_length);
         arrayLengthSlider.setPrefWidth(CANVAS_WIDTH);
         arrayLengthSlider.setMajorTickUnit(100);
         arrayLengthSlider.setMinorTickCount(10);
@@ -141,25 +132,16 @@ public class HistogramView extends Application {
         arrayLengthSlider.setShowTickMarks(true);
         active_controls.add(arrayLengthSlider);
 
-        Label arrayLengthLabel = new Label("Array Size: " + unsorted_array.length);
+        Label arrayLengthLabel = new Label("Array Size: " + sorting_controller.array_length);
 
         arrayLengthSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            array_length = newVal.intValue();
-            arrayLengthLabel.setText("Array Size: " + array_length);
+            int new_array_length = newVal.intValue();
+            arrayLengthLabel.setText("Array Size: " + new_array_length);
 
             pause.stop();
 
             pause.setOnFinished(event -> {
-                generateRandomArray(array_length, 1000);
-                try {
-                    Class<? extends Sorting> sorterClass = sorter_obj.getClass();
-                    Constructor<? extends Sorting> constructor = sorterClass.getConstructor(int[].class);
-                    sorter_obj = constructor.newInstance(unsorted_array);
-                    drawStep(sorter_obj.getZeroSortingStep());
-                    current_step_index = 0;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                sorting_controller.setArrayLength(new_array_length);
             });
             pause.playFromStart();
             updateChart();
@@ -170,7 +152,7 @@ public class HistogramView extends Application {
 
         sortingAlgorithmsGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle != null) {
-                SortType selectedType = (SortType) newToggle.getUserData();
+                SortingType selectedType = (SortingType) newToggle.getUserData();
                 setSortingAlgorithm(selectedType);
             }
         });
@@ -246,25 +228,20 @@ public class HistogramView extends Application {
         primaryStage.show();
 
         calculateBarWidth();
-        drawStep(sorter_obj.getZeroSortingStep());
-        current_step_index = 0;
+        drawStep(sorting_controller.getZeroSortingStep());
+        sorting_controller.current_step_index = 0;
     }
 
     private void updateStatsText() {
-        statsString = String.format(
-                "%-15s\t\t%s\n%-15s %s\n%-15s\t%s",
-                "Steps:", sorter_obj.getSortingSteps().size(),
-                "Memory used:", (sorter_obj.getMemoryUsed() / 1024) + " KB",
-                "Execution time:", sorter_obj.getTimeUsed() + " ns"
-        );
+        statsString = sorting_controller.getStatsText();
         statsText.setText(statsString);
     }
 
     private void setChartSeries() {
         series.getData().clear();
         orderednessChart.getData().clear();
-        for (int i = 0; i < sorter_obj.getSortingSteps().size(); i++)
-            series.getData().add(new XYChart.Data<>(i, sorter_obj.getStepsInversions()[i]));
+        for (int i = 0; i < sorting_controller.getSortingSteps().size(); i++)
+            series.getData().add(new XYChart.Data<>(i, sorting_controller.getStepsInversions()[i]));
         orderednessChart.getData().add(series);
     }
 
@@ -277,61 +254,42 @@ public class HistogramView extends Application {
 
     private void handleStepButtons(boolean forward) {
         if (forward) {
-            current_step_index++;
-            if (current_step_index > sorter_obj.getSortingSteps().toArray().length)
-                current_step_index = sorter_obj.getSortingSteps().toArray().length;
-            drawStep(sorter_obj.getSortingStepByIndex(current_step_index));
+            sorting_controller.current_step_index++;
+            if (sorting_controller.current_step_index > sorting_controller.sorter_obj.getSortingSteps().toArray().length)
+                sorting_controller.current_step_index = sorting_controller.sorter_obj.getSortingSteps().toArray().length;
+            drawStep(sorting_controller.sorter_obj.getSortingStepByIndex(sorting_controller.current_step_index));
 
         } else {
-            current_step_index--;
-            if (current_step_index < 0)
-                current_step_index = 0;
-            drawStep(sorter_obj.getSortingStepByIndex(current_step_index));
+            sorting_controller.current_step_index--;
+            if (sorting_controller.current_step_index < 0)
+                sorting_controller.current_step_index = 0;
+            drawStep(sorting_controller.sorter_obj.getSortingStepByIndex(sorting_controller.current_step_index));
         }
     }
 
-    private void setSortingAlgorithm(SortType type) {
-        switch (type) {
-            case BUBBLE:
-                sorter_obj = new BubbleSorting(unsorted_array);
-                break;
-            case SELECTION:
-                sorter_obj = new SelectionSorting(unsorted_array);
-                break;
-            case INSERTION:
-                sorter_obj = new InsertionSorting(unsorted_array);
-                break;
-            case QUICK:
-                sorter_obj = new QuickSorting(unsorted_array);
-                break;
-            case DOUBLE_INSERTION:
-                sorter_obj = new DoubleInsertionSorting(unsorted_array);
-                break;
-            case MERGE:
-                sorter_obj = new MergeSorting(unsorted_array);
-                break;
-        }
+    private void setSortingAlgorithm(SortingType type) {
+        sorting_controller.setSortingAlgorithm(type);
         updateChart();
         updateStatsText();
         System.out.println("Selected algorithm: " + type);
     }
 
     private void revertSort() {
-        drawStep(sorter_obj.getZeroSortingStep());
-        current_step_index = 0;
+        drawStep(sorting_controller.getZeroSortingStep());
+        sorting_controller.current_step_index = 0;
     }
 
     private void shuffleNumbers() {
-        sorter_obj.shuffleArray();
-        unsorted_array = sorter_obj.getUnsortedData();
-        drawStep(sorter_obj.getZeroSortingStep());
-        current_step_index = 0;
+        sorting_controller.sorter_obj.shuffleArray();
+        sorting_controller.unsorted_array = sorting_controller.sorter_obj.getUnsortedData();
+        drawStep(sorting_controller.sorter_obj.getZeroSortingStep());
+        sorting_controller.current_step_index = 0;
         updateChart();
         updateStatsText();
     }
 
     private void calculateBarWidth() {
-        BAR_WIDTH = CANVAS_WIDTH / sorter_obj.getSortedData().length;
+        BAR_WIDTH = CANVAS_WIDTH / sorting_controller.sorter_obj.getSortedData().length;
     }
 
     private int[] normalizeValues(int[] array, int newMin, int newMax) {
@@ -356,13 +314,13 @@ public class HistogramView extends Application {
     private void animateSort() {
         setDisabledActiveControls(true);
         Timeline timeline = new Timeline();
-        ArrayList<SortingStep> sorting_steps = sorter_obj.getSortingSteps();
+        ArrayList<SortingStep> sorting_steps = sorting_controller.sorter_obj.getSortingSteps();
         for (int i = 0; i < sorting_steps.size(); i++) {
             SortingStep step = sorting_steps.get(i);
             KeyFrame keyFrame = new KeyFrame(Duration.millis(ANIMATION_DELAY * i), e -> {
                 drawStep(step);
             });
-            current_step_index = i;
+            sorting_controller.current_step_index = i;
             timeline.getKeyFrames().add(keyFrame);
         }
         timeline.play();

@@ -13,4 +13,6 @@ module org.example.sortingvisualizer {
 
     opens sortingvisualizer.visualizer to javafx.fxml;
     exports sortingvisualizer.visualizer;
+    exports sortingvisualizer.sortingcontroller;
+    opens sortingvisualizer.sortingcontroller to javafx.fxml;
 }

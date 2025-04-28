@@ -14,6 +14,22 @@ abstract public class NumbersSorting implements Sorting {
     long time_used;
 
     public NumbersSorting(int[] new_unsorted_array) {
+        init(new_unsorted_array);
+//        sorting_steps = new ArrayList<>();
+//        setData(new_unsorted_array);
+//
+//        performSorting();
+//        verifySorting();
+//
+//        measureTimeUsed();
+//        measureMemoryUsed();
+//
+//        buildSortingSteps();
+//        countInversions();
+    }
+
+    public void init(int[] new_unsorted_array){
+
         sorting_steps = new ArrayList<>();
         setData(new_unsorted_array);
 

@@ -5,27 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb8457f9-daba-4d24-8930-379f929f1282" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingcontroller/SortingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingcontroller/SortingType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/VisualizerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/sortingvisualizer/visualizer/main-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/BubbleSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/BubbleSorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/DoubleInsertionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/DoubleInsertionSorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/InsertionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/InsertionSorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/MergeSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/MergeSorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/NumbersSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/NumbersSorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/QuickSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/QuickSorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/SelectionSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/SelectionSorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Sorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/Sorting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sorting_algorithms/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/MergeSortingStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/MergeSortingStep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/QuickSortingStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/QuickSortingStep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/SortingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/sortingvisualizer/SortingStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/SortingStep.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/sortingvisualizer/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sortingvisualizer/visualizer/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/MergeSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/MergeSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/NumbersSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/NumbersSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/QuickSorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/QuickSorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/Sorting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/Sorting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingalgorithms/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/MergeSortingStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingcontroller/MergeSortingStep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/QuickSortingStep.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingcontroller/QuickSortingStep.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/sortingvisualizer/visualizer/hello-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +31,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -68,7 +66,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SortingVisualiser.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.SortingVisualiser.executor&quot;: &quot;Run&quot;,
     &quot;Maven.SortingVisualizer.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,

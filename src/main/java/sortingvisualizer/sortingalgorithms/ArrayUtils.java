@@ -1,8 +1,9 @@
 package sortingvisualizer.sortingalgorithms;
 
 import java.lang.Math;
+import java.util.Random;
 
-public class Utils {
+public class ArrayUtils {
 
     public static int generateRandomInt(int exponent) {
         // exponent is a power of 10 of output value.
@@ -17,7 +18,16 @@ public class Utils {
             exponent++;
         }
         for (int i = 0; i < array_length; i++) {
-            res[i] = Utils.generateRandomInt(exponent);
+            res[i] = ArrayUtils.generateRandomInt(exponent);
+        }
+        return res;
+    }
+
+    public static int[] generateRandomIntArray(int array_length, int maxValue) {
+        Random rand = new Random();
+        int[] res = new int[array_length];
+        for (int i = 0; i < res.length; i++) {
+            res[i] = rand.nextInt(maxValue);
         }
         return res;
     }

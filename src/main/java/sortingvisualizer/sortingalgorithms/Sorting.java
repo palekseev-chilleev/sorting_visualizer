@@ -29,4 +29,5 @@ public interface Sorting {
     public long getTimeUsed();
 
 
+    void init(int[] unsortedArray);
 }
