@@ -1,7 +1,5 @@
 package sortingvisualizer.sortingcontroller;
 
-import sortingvisualizer.visualizer.SortingStep;
-
 public class MergeSortingStep extends SortingStep {
     public int recursion_depth;
 

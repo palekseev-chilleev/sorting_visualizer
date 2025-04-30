@@ -21,13 +21,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.animation.PauseTransition;
-import sortingvisualizer.sortingalgorithms.*;
-        import sortingvisualizer.sortingcontroller.SortingType;
+import sortingvisualizer.sortingcontroller.SortingStep;
+import sortingvisualizer.sortingcontroller.SortingType;
 import sortingvisualizer.sortingcontroller.SortingController;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static java.lang.Math.abs;
 
@@ -59,6 +57,7 @@ public class HistogramView extends Application {
     public static void setParams(int width, int height) {
         CANVAS_WIDTH = width;
         CANVAS_HEIGHT = height;
+
         /* Max array length is limited by canvas width.
         Considering 1 pixel is a space between histogram
         columns and 1 pixel as a column width, max array

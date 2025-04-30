@@ -1,6 +1,6 @@
 package sortingvisualizer.sortingalgorithms;
 
-import sortingvisualizer.visualizer.SortingStep;
+import sortingvisualizer.sortingcontroller.SortingStep;
 
 public class InsertionSorting extends NumbersSorting {
     public InsertionSorting(int[] new_unsorted_array) {

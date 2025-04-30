@@ -3,7 +3,7 @@ package sortingvisualizer.sortingalgorithms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import sortingvisualizer.visualizer.SortingStep;
+import sortingvisualizer.sortingcontroller.SortingStep;
 
 abstract public class NumbersSorting implements Sorting {
     protected int[] unsorted_data;

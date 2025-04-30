@@ -2,10 +2,8 @@ package sortingvisualizer.sortingcontroller;
 
 import sortingvisualizer.sortingalgorithms.*;
 import sortingvisualizer.sortingalgorithms.ArrayUtils;
-import sortingvisualizer.visualizer.SortingStep;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import static sortingvisualizer.sortingcontroller.SortingType.*;
 

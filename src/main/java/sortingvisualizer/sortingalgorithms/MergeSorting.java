@@ -1,7 +1,7 @@
 package sortingvisualizer.sortingalgorithms;
 
 import sortingvisualizer.sortingcontroller.MergeSortingStep;
-import sortingvisualizer.visualizer.SortingStep;
+import sortingvisualizer.sortingcontroller.SortingStep;
 
 import java.util.ArrayList;
 import java.util.Arrays;
