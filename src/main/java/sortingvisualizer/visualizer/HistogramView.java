@@ -3,6 +3,7 @@ package sortingvisualizer.visualizer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ import sortingvisualizer.sortingcontroller.SortingType;
 import sortingvisualizer.sortingcontroller.SortingController;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Math.abs;
 
@@ -50,6 +52,8 @@ public class HistogramView extends Application {
     private Text statsText;
 
     private PauseTransition pause;
+
+    private Label arrayLengthLabel;
 
 
     private final ArrayList<Control> active_controls = new ArrayList<>();
@@ -79,49 +83,6 @@ public class HistogramView extends Application {
 
         pause = new PauseTransition(Duration.millis(300));
 
-        Button startButton = new Button("Start Sort");
-        startButton.setOnAction(e -> animateSort());
-        active_controls.add(startButton);
-
-        Button revertButton = new Button("Revert Sort");
-        revertButton.setOnAction(e -> revertSort());
-        active_controls.add(revertButton);
-
-        Button shuffleButton = new Button("Shuffle Sort");
-        shuffleButton.setOnAction(e -> shuffleNumbers());
-        active_controls.add(shuffleButton);
-
-        ToggleGroup sortingAlgorithmsGroup = new ToggleGroup();
-        RadioButton bubbleButton = new RadioButton("Bubble");
-        bubbleButton.setToggleGroup(sortingAlgorithmsGroup);
-        bubbleButton.setUserData(SortingType.BUBBLE);
-        active_controls.add(bubbleButton);
-
-        RadioButton insertionButton = new RadioButton("Insertion");
-        insertionButton.setToggleGroup(sortingAlgorithmsGroup);
-        insertionButton.setUserData(SortingType.INSERTION);
-        active_controls.add(insertionButton);
-
-        RadioButton quickButton = new RadioButton("Quick");
-        quickButton.setToggleGroup(sortingAlgorithmsGroup);
-        quickButton.setUserData(SortingType.QUICK);
-        active_controls.add(quickButton);
-
-        RadioButton selectionButton = new RadioButton("Selection");
-        selectionButton.setToggleGroup(sortingAlgorithmsGroup);
-        selectionButton.setUserData(SortingType.SELECTION);
-        active_controls.add(selectionButton);
-
-        RadioButton mergeButton = new RadioButton("Merge");
-        mergeButton.setToggleGroup(sortingAlgorithmsGroup);
-        mergeButton.setUserData(SortingType.MERGE);
-        active_controls.add(mergeButton);
-
-        RadioButton doubleInsertionButton = new RadioButton("Double Insertion");
-        doubleInsertionButton.setToggleGroup(sortingAlgorithmsGroup);
-        doubleInsertionButton.setUserData(SortingType.DOUBLE_INSERTION);
-        active_controls.add(doubleInsertionButton);
-
         Slider arrayLengthSlider = new Slider(10, max_array_length, sorting_controller.array_length);
         arrayLengthSlider.setPrefWidth(CANVAS_WIDTH);
         arrayLengthSlider.setMajorTickUnit(100);
@@ -131,38 +92,9 @@ public class HistogramView extends Application {
         arrayLengthSlider.setShowTickMarks(true);
         active_controls.add(arrayLengthSlider);
 
-        Label arrayLengthLabel = new Label("Array Size: " + sorting_controller.array_length);
+        arrayLengthLabel = new Label("Array Size: " + sorting_controller.array_length);
 
-        arrayLengthSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
-            int new_array_length = newVal.intValue();
-            arrayLengthLabel.setText("Array Size: " + new_array_length);
-
-            pause.stop();
-
-            pause.setOnFinished(event -> {
-                sorting_controller.setArrayLength(new_array_length);
-            });
-            pause.playFromStart();
-            updateChart();
-            updateStatsText();
-        });
-
-        bubbleButton.setSelected(true);
-
-        sortingAlgorithmsGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
-            if (newToggle != null) {
-                SortingType selectedType = (SortingType) newToggle.getUserData();
-                setSortingAlgorithm(selectedType);
-            }
-        });
-
-        Button nextStepButton = new Button("Next step");
-        nextStepButton.setOnAction(event -> handleStepButtons(true));
-        active_controls.add(nextStepButton);
-
-        Button prevStepButton = new Button("Prev step");
-        prevStepButton.setOnAction(event -> handleStepButtons(false));
-        active_controls.add(prevStepButton);
+        arrayLengthSlider.valueProperty().addListener(this::handleArrayLengthChange);
 
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Step");
@@ -187,7 +119,8 @@ public class HistogramView extends Application {
         root.setSpacing(20);
         root.setPadding(new Insets(20));
 
-        HBox navigationBox = new HBox(prevStepButton, nextStepButton);
+        HBox navigationBox = new HBox();
+        navigationBox.getChildren().addAll(createNavigationButtons());
 
         VBox arrayLengthBox = new VBox(arrayLengthSlider, arrayLengthLabel);
 
@@ -197,11 +130,13 @@ public class HistogramView extends Application {
         canvasAndLowControls.setSpacing(10);
         canvasAndLowControls.getChildren().addAll(canvasWrapper, lowControlPanel);
 
-        VBox buttonsBox = new VBox(startButton, revertButton, shuffleButton, navigationBox);
+        VBox buttonsBox = new VBox();
+        buttonsBox.getChildren().addAll(createActionButtons());
+        buttonsBox.getChildren().addAll(navigationBox);
         buttonsBox.setSpacing(10);
         buttonsBox.setAlignment(Pos.CENTER);
-        VBox radioButtonsBox = new VBox(bubbleButton, selectionButton,
-                insertionButton, doubleInsertionButton, mergeButton, quickButton);
+        VBox radioButtonsBox = new VBox();
+        radioButtonsBox.getChildren().addAll(createRadioButtons());
         radioButtonsBox.setSpacing(10);
         radioButtonsBox.setAlignment(Pos.BASELINE_LEFT);
         HBox allButtonsBox = new HBox(buttonsBox, radioButtonsBox);
@@ -229,6 +164,107 @@ public class HistogramView extends Application {
         calculateBarWidth();
         drawStep(sorting_controller.getZeroSortingStep());
         sorting_controller.current_step_index = 0;
+    }
+
+    private void handleArrayLengthChange(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
+        int new_array_length = newVal.intValue();
+        arrayLengthLabel.setText("Array Size: " + new_array_length);
+
+        pause.stop();
+
+        pause.setOnFinished(event -> {
+            sorting_controller.setArrayLength(new_array_length);
+        });
+        pause.playFromStart();
+        updateChart();
+        updateStatsText();
+    }
+
+    private List<Button> createActionButtons() {
+        List<Button> buttons = new ArrayList<>();
+
+        Button startButton = new Button("Start Sort");
+        startButton.setOnAction(e -> animateSort());
+        active_controls.add(startButton);
+        buttons.add(startButton);
+
+        Button revertButton = new Button("Revert Sort");
+        revertButton.setOnAction(e -> revertSort());
+        active_controls.add(revertButton);
+        buttons.add(revertButton);
+
+        Button shuffleButton = new Button("Shuffle Sort");
+        shuffleButton.setOnAction(e -> shuffleNumbers());
+        active_controls.add(shuffleButton);
+        buttons.add(shuffleButton);
+
+        return buttons;
+    }
+
+    private List<Button> createNavigationButtons() {
+        List<Button> buttons = new ArrayList<>();
+
+        Button nextStepButton = new Button("Next step");
+        nextStepButton.setOnAction(event -> handleStepButtons(true));
+        active_controls.add(nextStepButton);
+        buttons.add(nextStepButton);
+
+        Button prevStepButton = new Button("Prev step");
+        prevStepButton.setOnAction(event -> handleStepButtons(false));
+        active_controls.add(prevStepButton);
+        buttons.add(prevStepButton);
+
+        return buttons;
+    }
+
+    private List<RadioButton> createRadioButtons() {
+        List<RadioButton> radioButtons = new ArrayList<>();
+        ToggleGroup sortingAlgorithmsGroup = new ToggleGroup();
+        RadioButton bubbleButton = new RadioButton("Bubble");
+        bubbleButton.setToggleGroup(sortingAlgorithmsGroup);
+        bubbleButton.setUserData(SortingType.BUBBLE);
+        active_controls.add(bubbleButton);
+        radioButtons.add(bubbleButton);
+
+        RadioButton insertionButton = new RadioButton("Insertion");
+        insertionButton.setToggleGroup(sortingAlgorithmsGroup);
+        insertionButton.setUserData(SortingType.INSERTION);
+        active_controls.add(insertionButton);
+        radioButtons.add(insertionButton);
+
+        RadioButton selectionButton = new RadioButton("Selection");
+        selectionButton.setToggleGroup(sortingAlgorithmsGroup);
+        selectionButton.setUserData(SortingType.SELECTION);
+        active_controls.add(selectionButton);
+        radioButtons.add(selectionButton);
+
+        RadioButton doubleInsertionButton = new RadioButton("Double Insertion");
+        doubleInsertionButton.setToggleGroup(sortingAlgorithmsGroup);
+        doubleInsertionButton.setUserData(SortingType.DOUBLE_INSERTION);
+        active_controls.add(doubleInsertionButton);
+        radioButtons.add(doubleInsertionButton);
+
+        RadioButton mergeButton = new RadioButton("Merge");
+        mergeButton.setToggleGroup(sortingAlgorithmsGroup);
+        mergeButton.setUserData(SortingType.MERGE);
+        active_controls.add(mergeButton);
+        radioButtons.add(mergeButton);
+
+        RadioButton quickButton = new RadioButton("Quick");
+        quickButton.setToggleGroup(sortingAlgorithmsGroup);
+        quickButton.setUserData(SortingType.QUICK);
+        active_controls.add(quickButton);
+        radioButtons.add(quickButton);
+
+        bubbleButton.setSelected(true);
+
+        sortingAlgorithmsGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+            if (newToggle != null) {
+                SortingType selectedType = (SortingType) newToggle.getUserData();
+                setSortingAlgorithm(selectedType);
+            }
+        });
+        return radioButtons;
     }
 
     private void updateStatsText() {
