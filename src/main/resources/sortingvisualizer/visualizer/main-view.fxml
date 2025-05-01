@@ -17,10 +17,10 @@
 
         <HBox>
             <VBox spacing="5">
-                <Slider fx:id="arrayLengthSlider" min="10" max="1000" majorTickUnit="100" minorTickCount="10"
-                        showTickMarks="true" showTickLabels="true" prefWidth="800"/>
+                <Slider fx:id="array_length_slider" min="10" max="1000" majorTickUnit="100" minorTickCount="10"
+                        showTickMarks="true" showTickLabels="true" prefWidth="800" />
                 <!--                            blockIncrement="10"-->
-                <Label fx:id="arrayLengthLabel" text="Array Size: 0"/>
+                <Label fx:id="array_length_label" text="Array Size: 0"/>
             </VBox>
         </HBox>
     </VBox>
@@ -28,38 +28,38 @@
     <VBox spacing="10" alignment="TOP_CENTER">
         <HBox spacing="10" alignment="CENTER">
             <VBox spacing="10" alignment="CENTER">
-                <Button text="Start Sort" onAction="#animateSort"/>
-                <Button text="Revert Sort" onAction="#revertSort"/>
-                <Button text="Shuffle Sort" onAction="#shuffleNumbers"/>
+                <Button text="Start Sort" fx:id="start_button" onAction="#animateSort"/>
+                <Button text="Revert Sort" fx:id="revert_button" onAction="#revertSort"/>
+                <Button text="Shuffle Sort" fx:id="shuffle_button" onAction="#shuffleNumbers"/>
 
                 <HBox spacing="10">
-                    <Button text="Prev step" onAction="#handleStepButtons"/>
-                    <Button fx:id="nextStepButton" text="Next step" onAction="#handleStepButtons"/>
+                    <Button fx:id="prev_step_button" text="Prev step" onAction="#handleStepButtons"/>
+                    <Button fx:id="next_step_button" text="Next step" onAction="#handleStepButtons"/>
                 </HBox>
             </VBox>
 
             <VBox spacing="10" alignment="BASELINE_LEFT">
-                <RadioButton fx:id="bubbleButton" text="Bubble" toggleGroup="$sortingAlgorithmsGroup"/>
-                <RadioButton fx:id="selectionButton" text="Selection" toggleGroup="$sortingAlgorithmsGroup"/>
-                <RadioButton fx:id="insertionButton" text="Insertion" toggleGroup="$sortingAlgorithmsGroup"/>
-                <RadioButton fx:id="doubleInsertionButton" text="Double Insertion"
-                             toggleGroup="$sortingAlgorithmsGroup"/>
-                <RadioButton fx:id="mergeButton" text="Merge" toggleGroup="$sortingAlgorithmsGroup"/>
-                <RadioButton fx:id="quickButton" text="Quick" toggleGroup="$sortingAlgorithmsGroup"/>
+                <RadioButton fx:id="bubble_button" text="Bubble" toggleGroup="$sorting_algorithms_group"/>
+                <RadioButton fx:id="selection_button" text="Selection" toggleGroup="$sorting_algorithms_group"/>
+                <RadioButton fx:id="insertion_button" text="Insertion" toggleGroup="$sorting_algorithms_group"/>
+                <RadioButton fx:id="double_insertion_button" text="Double Insertion"
+                             toggleGroup="$sorting_algorithms_group"/>
+                <RadioButton fx:id="merge_button" text="Merge" toggleGroup="$sorting_algorithms_group"/>
+                <RadioButton fx:id="quick_button" text="Quick" toggleGroup="$sorting_algorithms_group"/>
             </VBox>
         </HBox>
 
         <VBox spacing="10">
-            <LineChart fx:id="orderednessChart" createSymbols="false" legendVisible="false">
+            <LineChart fx:id="orderedness_chart" createSymbols="false" legendVisible="false">
                 <xAxis>
-                    <NumberAxis label="Step" fx:id="xAxis"/>
+                    <NumberAxis label="Step" fx:id="x_axis"/>
                 </xAxis>
                 <yAxis>
-                    <NumberAxis label="Inversions" fx:id="yAxis"/>
+                    <NumberAxis label="Inversions" fx:id="y_axis"/>
                 </yAxis>
             </LineChart>
 
-            <Text fx:id="statsText" style="-fx-font-size: 16px;"/>
+            <Text fx:id="stats_text" style="-fx-font-size: 16px;"/>
         </VBox>
     </VBox>
 

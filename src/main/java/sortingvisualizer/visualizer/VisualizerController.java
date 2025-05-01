@@ -3,99 +3,93 @@ package sortingvisualizer.visualizer;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.chart.LineChart;
-import javafx.scene.input.DragEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import sortingvisualizer.sortingalgorithms.*;
 import sortingvisualizer.sortingcontroller.SortingController;
 import sortingvisualizer.sortingcontroller.SortingStep;
 import sortingvisualizer.sortingcontroller.SortingType;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.List;
 
 import static java.lang.Math.abs;
 
 public class VisualizerController extends Control {
-    private static final int CONTROL_PANE_WIDTH = 150;
+    private static int CONTROL_PANE_WIDTH;
     private static int BAR_WIDTH = 20;
     private static int CANVAS_WIDTH;
     private static int CANVAS_HEIGHT;
-    private static int BAR_SPACING = 1;
-    private static int ANIMATION_DELAY = 50;
+    private static final int BAR_SPACING = 1;
+    private static final int ANIMATION_DELAY = 50;
+    private int max_array_length;
 
     private final ArrayList<Control> active_controls = new ArrayList<>();
-    @FXML
-    private Label arrayLengthLabel;
 
     @FXML
-    private Button nextStepButton;
+    private Label array_length_label;
 
 
     @FXML
-    private RadioButton bubbleButton;
+    private Button start_button;
     @FXML
-    private RadioButton selectionButton;
+    private Button revert_button;
     @FXML
-    private RadioButton insertionButton;
-    @FXML
-    private RadioButton doubleInsertionButton;
-    @FXML
-    private RadioButton mergeButton;
-    @FXML
-    private RadioButton quickButton;
-    @FXML
-    private final ToggleGroup sortingAlgorithmsGroup = new ToggleGroup();
+    private Button shuffle_button;
+
 
     @FXML
-    private Slider arrayLengthSlider;
+    private Button prev_step_button;
+    @FXML
+    private Button next_step_button;
+
+
+    @FXML
+    private RadioButton bubble_button;
+    @FXML
+    private RadioButton selection_button;
+    @FXML
+    private RadioButton insertion_button;
+    @FXML
+    private RadioButton double_insertion_button;
+    @FXML
+    private RadioButton merge_button;
+    @FXML
+    private RadioButton quick_button;
+    @FXML
+    private final ToggleGroup sorting_algorithms_group = new ToggleGroup();
+
+    @FXML
+    private Slider array_length_slider;
     @FXML
     private Canvas canvas;
 
 
     @FXML
-    NumberAxis xAxis;
+    NumberAxis x_axis;
     @FXML
-    NumberAxis yAxis;
+    NumberAxis y_axis;
 
     @FXML
-    LineChart<Number, Number> orderednessChart;
-
+    LineChart<Number, Number> orderedness_chart;
 
     @FXML
-    private Text statsText;
+    private Text stats_text;
 
     private XYChart.Series<Number, Number> series;
-
     private SortingController sorting_controller;
-
     private GraphicsContext gc;
-    private String statsString;
     private PauseTransition pause;
 
-
-    public VisualizerController() {
-        CANVAS_HEIGHT = 800;
-        CANVAS_WIDTH = 600;
-    }
 
     private void setSortingAlgorithm(SortingType type) {
         sorting_controller.setSortingAlgorithm(type);
@@ -104,57 +98,105 @@ public class VisualizerController extends Control {
         System.out.println("Selected algorithm: " + type);
     }
 
-    public void loadParameters(SortingController new_sorting_controller) {
-        sorting_controller = new_sorting_controller;
+    public void loadParameters(int new_canvas_width, int new_canvas_height) {
+        CANVAS_WIDTH = new_canvas_width;
+        CANVAS_HEIGHT = new_canvas_height;
+        CONTROL_PANE_WIDTH = new_canvas_width / 2;
+
+        /* Max array length is limited by canvas width.
+        Considering 1 pixel is a space between histogram
+        columns and 1 pixel as a column width, max array
+        length is canvas width/2. Additional 2 pixels are
+         just to have some space between border of canvas
+         and columns. */
+        max_array_length = CANVAS_WIDTH / 2 - 2;
+        sorting_controller = new SortingController(max_array_length / 2);
     }
 
     @FXML
     public void initialize() {
-        bubbleButton.setToggleGroup(sortingAlgorithmsGroup);
-        bubbleButton.setUserData(SortingType.BUBBLE);
+        bubble_button.setToggleGroup(sorting_algorithms_group);
+        bubble_button.setUserData(SortingType.BUBBLE);
 
-        selectionButton.setToggleGroup(sortingAlgorithmsGroup);
-        selectionButton.setUserData(SortingType.SELECTION);
+        selection_button.setToggleGroup(sorting_algorithms_group);
+        selection_button.setUserData(SortingType.SELECTION);
 
-        insertionButton.setToggleGroup(sortingAlgorithmsGroup);
-        insertionButton.setUserData(SortingType.INSERTION);
+        insertion_button.setToggleGroup(sorting_algorithms_group);
+        insertion_button.setUserData(SortingType.INSERTION);
 
-        doubleInsertionButton.setToggleGroup(sortingAlgorithmsGroup);
-        doubleInsertionButton.setUserData(SortingType.DOUBLE_INSERTION);
+        double_insertion_button.setToggleGroup(sorting_algorithms_group);
+        double_insertion_button.setUserData(SortingType.DOUBLE_INSERTION);
 
-        mergeButton.setToggleGroup(sortingAlgorithmsGroup);
-        mergeButton.setUserData(SortingType.MERGE);
+        merge_button.setToggleGroup(sorting_algorithms_group);
+        merge_button.setUserData(SortingType.MERGE);
 
-        quickButton.setToggleGroup(sortingAlgorithmsGroup);
-        quickButton.setUserData(SortingType.QUICK);
+        quick_button.setToggleGroup(sorting_algorithms_group);
+        quick_button.setUserData(SortingType.QUICK);
 
         pause = new PauseTransition(Duration.millis(300));
 
-
-        sortingAlgorithmsGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
+        sorting_algorithms_group.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle != null) {
                 SortingType selectedType = (SortingType) newToggle.getUserData();
                 setSortingAlgorithm(selectedType);
             }
         });
 
-        arrayLengthSlider.valueProperty().addListener(this::handleArrayLengthChange);
+        array_length_slider.valueProperty().addListener(this::handleArrayLengthChange);
 
         series = new XYChart.Series<>();
         series.setName("Inversions");
+
+        collectActiveControls();
+
+        gc = canvas.getGraphicsContext2D();
+
+        Platform.runLater(this::initDraw);
+    }
+
+    private void collectActiveControls(){
+        active_controls.add(start_button);
+        active_controls.add(revert_button);
+        active_controls.add(shuffle_button);
+        active_controls.add(prev_step_button);
+        active_controls.add(next_step_button);
+        active_controls.add(bubble_button);
+        active_controls.add(selection_button);
+        active_controls.add(insertion_button);
+        active_controls.add(double_insertion_button);
+        active_controls.add(merge_button);
+        active_controls.add(quick_button);
+        active_controls.add(array_length_slider);
     }
 
     public void initDraw() {
+        canvas.setWidth(CANVAS_WIDTH);
+        canvas.setHeight(CANVAS_HEIGHT);
+        array_length_label.setPrefWidth(CANVAS_WIDTH);
 
-        gc = canvas.getGraphicsContext2D();
-        drawStep(sorting_controller.getZeroSortingStep());
+        array_length_slider.setMax(max_array_length);
+        array_length_slider.setValue((double) max_array_length / 2);
+        bubble_button.setSelected(true);
+        resetAll();
+    }
+
+    private void resetAll() {
+        drawStep(sorting_controller.getCurrentSortingStep());
+        updateStatsText();
+        setChartSeries();
+    }
+
+    private void setChartSeries() {
+        series.getData().clear();
+        orderedness_chart.getData().clear();
+        for (int i = 0; i < sorting_controller.getSortingSteps().size(); i++)
+            series.getData().add(new XYChart.Data<>(i, sorting_controller.getStepsInversions()[i]));
+        orderedness_chart.getData().add(series);
     }
 
     private void updateStatsText() {
-        statsString = sorting_controller.getStatsText();
-        statsText.setText(statsString);
+        stats_text.setText(sorting_controller.getStatsText());
     }
-
 
     @FXML
     private void animateSort() {
@@ -177,7 +219,7 @@ public class VisualizerController extends Control {
     @FXML
     private void handleStepButtons(ActionEvent event) {
         Object source = event.getSource();
-        if (source == nextStepButton) {
+        if (source == next_step_button) {
             sorting_controller.current_step_index++;
             if (sorting_controller.current_step_index > sorting_controller.sorter_obj.getSortingSteps().toArray().length)
                 sorting_controller.current_step_index = sorting_controller.sorter_obj.getSortingSteps().toArray().length;
@@ -196,18 +238,15 @@ public class VisualizerController extends Control {
         sorting_controller.current_step_index = 0;
     }
 
-
     private void handleArrayLengthChange(ObservableValue<? extends Number> obs, Number oldVal, Number newVal) {
         int new_array_length = newVal.intValue();
-        arrayLengthLabel.setText("Array Size: " + new_array_length);
+        array_length_label.setText("Array Size: " + new_array_length);
         pause.stop();
         pause.setOnFinished(event -> {
             sorting_controller.setArrayLength(new_array_length);
         });
         pause.playFromStart();
-        drawStep(sorting_controller.sorter_obj.getZeroSortingStep());
-        updateChart();
-        updateStatsText();
+        resetAll();
     }
 
     @FXML
@@ -222,18 +261,9 @@ public class VisualizerController extends Control {
 
     private void updateChart() {
         setDisabledActiveControls(true);
-        orderednessChart.getData().clear();
+        orderedness_chart.getData().clear();
         setChartSeries();
         setDisabledActiveControls(false);
-    }
-
-    private void setChartSeries() {
-        series.getData().clear();
-        orderednessChart.getData().clear();
-        for (int i = 0; i < sorting_controller.getSortingSteps().size(); i++)
-            series.getData().add(new XYChart.Data<>(i, sorting_controller.getStepsInversions()[i]));
-
-        orderednessChart.getData().add(series);
     }
 
     private void setDisabledActiveControls(Boolean v) {

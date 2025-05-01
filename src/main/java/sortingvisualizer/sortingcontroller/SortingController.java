@@ -54,6 +54,10 @@ public class SortingController {
         return sorter_obj.getZeroSortingStep();
     }
 
+    public SortingStep getCurrentSortingStep(){
+        return sorter_obj.getSortingStepByIndex(current_step_index);
+    }
+
     public ArrayList<SortingStep> getSortingSteps() {
         return sorter_obj.getSortingSteps();
     }
