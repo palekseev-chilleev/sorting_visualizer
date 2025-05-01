@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="cb8457f9-daba-4d24-8930-379f929f1282" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingcontroller/SortingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/sortingcontroller/SortingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/StartApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/VisualizerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/VisualizerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/sortingvisualizer/visualizer/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sortingvisualizer/visualizer/main-view.fxml" afterDir="false" />
@@ -74,7 +75,7 @@
   </component>
   <component name="RunManager">
     <configuration name="SortingVisualiser" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="sortingvisualizer.visualizer.HelloApplication" />
+      <option name="MAIN_CLASS_NAME" value="sortingvisualizer.visualizer.StartApplication" />
       <module name="SortingVisualizer" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -99,14 +100,9 @@
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" log-message="true" suspend="NONE" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java</url>
-          <line>115</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/VisualizerController.java</url>
-          <line>231</line>
+          <line>221</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

@@ -24,7 +24,7 @@ public class HistogramView extends Application {
         VisualizerController visualizerController = loader.getController();
         visualizerController.loadParameters(CANVAS_WIDTH, CANVAS_HEIGHT);
 
-        Scene scene = new Scene(root, CANVAS_WIDTH + 150 + 400, CANVAS_HEIGHT + 100);
+        Scene scene = new Scene(root);
         primaryStage.setTitle("Sorting Visualizer");
         primaryStage.setScene(scene);
         primaryStage.sizeToScene();

@@ -245,8 +245,9 @@ public class VisualizerController extends Control {
         pause.setOnFinished(event -> {
             sorting_controller.setArrayLength(new_array_length);
         });
-        pause.playFromStart();
         resetAll();
+        pause.playFromStart();
+
     }
 
     @FXML
