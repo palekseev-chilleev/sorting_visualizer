@@ -133,8 +133,8 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.example.sortingvisualizer/sortingvisualizer.visualizer.StartApplication
-                            </mainClass>
+                            <mainClass>sortingvisualizer.visualizer.StartApplication
+                                </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

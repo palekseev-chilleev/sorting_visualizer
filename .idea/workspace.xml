@@ -7,10 +7,6 @@
     <list default="true" id="cb8457f9-daba-4d24-8930-379f929f1282" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/StartApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/HistogramView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/VisualizerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sortingvisualizer/visualizer/VisualizerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/sortingvisualizer/visualizer/main-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/sortingvisualizer/visualizer/main-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +58,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2954023",
     "settings.editor.selected.configurable": "preferences.sourceCode.Java"
