@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HistogramView extends Application {
-    public static int CANVAS_WIDTH;
-    public static int CANVAS_HEIGHT;
+    public static int CANVAS_WIDTH = 1024;
+    public static int CANVAS_HEIGHT = 768;
 
-    public static void setParams(int width, int height) {
+    public static void setHistogramResolution(int width, int height) {
         CANVAS_WIDTH = width;
         CANVAS_HEIGHT = height;
     }
