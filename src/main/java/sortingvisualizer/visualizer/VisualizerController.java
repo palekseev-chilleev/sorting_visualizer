@@ -154,7 +154,7 @@ public class VisualizerController extends Control {
         Platform.runLater(this::initDraw);
     }
 
-    private void collectActiveControls(){
+    private void collectActiveControls() {
         active_controls.add(start_button);
         active_controls.add(revert_button);
         active_controls.add(shuffle_button);
@@ -244,10 +244,9 @@ public class VisualizerController extends Control {
         pause.stop();
         pause.setOnFinished(event -> {
             sorting_controller.setArrayLength(new_array_length);
+            resetAll();
         });
-        resetAll();
         pause.playFromStart();
-
     }
 
     @FXML

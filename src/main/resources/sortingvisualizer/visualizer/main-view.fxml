@@ -36,7 +36,7 @@
     </VBox>
 
     <VBox alignment="TOP_CENTER" spacing="10">
-        <HBox alignment="CENTER" spacing="10">
+        <HBox alignment="CENTER" spacing="10" >
             <VBox alignment="CENTER" spacing="10">
                 <Button fx:id="start_button" onAction="#animateSort" text="Start Sort"/>
                 <Button fx:id="revert_button" onAction="#revertSort" text="Revert Sort"/>
